@@ -9,7 +9,7 @@ public static void main(String[] args) {
   String name = "홍길동"; // name는 레퍼런스 변수이다.
   int age = 20;
   boolean working = true;
-  char gender = 'W';
+  char gender = 'M';
   float leftEye = 1.5f;
   float rightEye = 1.0f; // camel 표기법, 파라미터명은 소문자 시작, class명은 대문자로 시작
 
