@@ -14,7 +14,7 @@ public class Exam0160 {
     // => 연산 우선 순위에 따라 계산하는 순간에 암시적 형변환이 이루어진다.
     // => 모든 값을 최종 결과 타입으로 바꾸고 계산하지는 않는다.
     System.out.println(r1);
-    
+
     float r2 = 3.1f + 5 / 2;
     // 계산 순서
     // r2 = float(3.1) + int(5) / int(2)
@@ -24,13 +24,3 @@ public class Exam0160 {
     System.out.println(r2);
   }
 }
-
-
-
-
-
-
-
-
-
-
