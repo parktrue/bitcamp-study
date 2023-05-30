@@ -8,7 +8,7 @@ public class Exam0250 {
 
     System.out.print("나이, 이름, 취업여부? ");
     int age = keyboardScanner.nextInt();
-
+    // 입력을 받고 엔터나 공백을 입력받을때까지 블록킹하여 기다린다.
     // 한 개의 토큰을 읽을 때 유용하다.
     String name = keyboardScanner.next();
 
