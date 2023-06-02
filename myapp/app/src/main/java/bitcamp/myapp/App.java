@@ -9,7 +9,7 @@ public class App {
     // 각 데이터를 키보드를 통해 입력받아서 출력한다.
     Scanner scanner = new java.util.Scanner(System.in);
 
-    final int MAX_SIZE = 100; // final 변수는 값이 한번 들어가면 값을 바꿀 수 없다.
+    final int MAX_SIZE = 100; // final 변수는 값이 한번 들어가면 값을 바꿀 수 없다.(상수)
     int userId = 1;
     int length = 0;
 
