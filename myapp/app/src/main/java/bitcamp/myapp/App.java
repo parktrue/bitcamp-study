@@ -4,35 +4,33 @@ package bitcamp.myapp;
 import java.util.Scanner;
 
 public class App {
+
+  static Scanner scanner = new java.util.Scanner(System.in);
+
+  static final int MAX_SIZE = 100;
+  static int[] no = new int[MAX_SIZE];
+  static String[] name = new String[MAX_SIZE];
+  static String[] email = new String[MAX_SIZE];
+  static String[] password = new String[MAX_SIZE];
+  static char[] gender = new char[MAX_SIZE];
+  static int userId = 1;
+  static int length = 0;
+
   public static void main(String[] args) {
     // 키보드 스캐너 준비
     // 각 데이터를 키보드를 통해 입력받아서 출력한다.
-    Scanner scanner = new java.util.Scanner(System.in);
 
-    final int MAX_SIZE = 100; // final 변수는 값이 한번 들어가면 값을 바꿀 수 없다.(상수)
-    int userId = 1;
-    int length = 0;
-
-    // int[] no = new int[MAX_SIZE]; // 3은 메모리의 개수이며 int는 만들 메모리의 데이터 타입이다. no는 배열의
-    // 주소를 담는 레퍼런스이다.
-    int[] no = new int[MAX_SIZE];
-    String[] name = new String[MAX_SIZE];
-    String[] email = new String[MAX_SIZE];
-    String[] password = new String[MAX_SIZE];
-    char[] gender = new char[MAX_SIZE];
     printTitle();
 
     // 회원 정보 등록
-    for (int i = 0; i < MAX_SIZE; i++) {
-      // i++; // 값을 1개 증가 == i += 1;, i = i + 1;
-      inputMember(scanner, i, name, email, password, gender, no, userId++);
-      length++;
-      if (!promptContinue(scanner)) {
+    while (length < MAX_SIZE) {
+      inputMember();
+      if (!promptContinue()) {
         break;
       }
     }
 
-    printMembers(length, no, name, email, gender);
+    printMembers();
     scanner.close();
   }
 
@@ -41,23 +39,15 @@ public class App {
     System.out.println("\n-------------------------------\n");
   }
 
-  static void inputMember(
-      Scanner scanner,
-      int i,
-      String[] name,
-      String[] email,
-      String[] password,
-      char[] gender,
-      int[] no,
-      int userId) {
+  static void inputMember() {
     System.out.print("이름 : ");
-    name[i] = scanner.next();
+    name[length] = scanner.next();
 
     System.out.print("이메일 : ");
-    email[i] = scanner.next();
+    email[length] = scanner.next();
 
     System.out.print("암호 : ");
-    password[i] = scanner.next();
+    password[length] = scanner.next();
 
     loop:
     while (true) {
@@ -69,19 +59,20 @@ public class App {
       scanner.nextLine(); // 입력 값(token) 읽고 난 후에 남아있는 줄바꿈 코드를 제거한다.
       switch (menuNo) {
         case "1":
-          gender[i] = 'M';
+          gender[length] = 'M';
           break loop;
         case "2":
-          gender[i] = 'W';
+          gender[length] = 'W';
           break loop;
         default:
           System.out.println("무효한 번호입니다.");
       }
     }
-    no[i] = userId++;
+    no[length] = userId++;
+    length++;
   }
 
-  static boolean promptContinue(Scanner scanner) {
+  static boolean promptContinue() {
     System.out.print("계속 하시겠습니까?(Y/n) ");
     String response = scanner.nextLine();
     // equalsIgnoreCase 는 대소문자를 구분하지 않겠다는 의미이다.
@@ -91,7 +82,7 @@ public class App {
     return true;
   }
 
-  static void printMembers(int length, int[] no, String[] name, String[] email, char[] gender) {
+  static void printMembers() {
     System.out.println("\n-------------------------------\n");
 
     System.out.println("번호, 이름, 이메일, 성별\n");
