@@ -12,28 +12,46 @@ public class App {
     // 각 데이터를 키보드를 통해 입력받아서 출력한다.
 
     printTitle();
+    printMenu();
 
-    // 회원 정보 등록
-    while (MemberHandler.available()) {
-      MemberHandler.inputMember();
-      if (!promptContinue()) {
+    while (true) {
+      String menuNo = Prompt.inputString("메인> ");
+      if (menuNo.equals("6")) {
         break;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        MemberHandler.inputMember();
+      } else if (menuNo.equals("2")) {
+        MemberHandler.printMembers();
+      } else if (menuNo.equals("3")) {
+        MemberHandler.viewMember();
+      } else if (menuNo.equals("4")) {
+        MemberHandler.updateMember();
+      } else {
+        System.out.println(menuNo);
       }
     }
-
-    MemberHandler.printMembers();
 
     Prompt.close();
   }
 
+  static void printMenu() {
+    System.out.println("1. 회원등록");
+    System.out.println("2. 회원목록");
+    System.out.println("3. 회원조회");
+    System.out.println("4. 회원변경");
+    System.out.println("5. 회원삭제");
+    System.out.println("6. 종료");
+  }
+
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
-    System.out.println("\n-------------------------------\n");
+    System.out.println("-------------------------------\n");
   }
 
   static boolean promptContinue() {
     String response = Prompt.inputString("계속 하시겠습니까?(Y/n) ");
-    // equalsIgnoreCase 는 대소문자를 구분하지 않겠다는 의미이다.
     if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
       return false;
     }
