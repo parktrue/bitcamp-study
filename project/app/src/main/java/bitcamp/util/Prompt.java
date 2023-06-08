@@ -11,9 +11,8 @@ public class Prompt {
     return scanner.nextLine();
   }
 
-  public static int inputAge(String title) {
-    System.out.print(title);
-    return Integer.parseInt(scanner.nextLine());
+  public static int inputInt(String title) {
+    return Integer.parseInt(inputString(title));
   }
 
   public static void close() {

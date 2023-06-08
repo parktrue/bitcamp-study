@@ -28,6 +28,8 @@ public class App {
         MemberHandler.viewMember();
       } else if (menuNo.equals("4")) {
         MemberHandler.updateMember();
+      } else if (menuNo.equals("5")) {
+        MemberHandler.deleteMember();
       } else {
         System.out.println(menuNo);
       }
@@ -48,13 +50,5 @@ public class App {
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
     System.out.println("-------------------------------\n");
-  }
-
-  static boolean promptContinue() {
-    String response = Prompt.inputString("계속 하시겠습니까?(Y/n) ");
-    if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
-      return false;
-    }
-    return true;
   }
 }
