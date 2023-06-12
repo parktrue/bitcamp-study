@@ -69,12 +69,12 @@ public class MemberHandler {
       Member m = members[i];
       if (m.getNo() == Integer.parseInt(memberNo)) {
         System.out.printf("이름(%s)?", m.getName());
-        m.setName(name) = Prompt.inputString("");
+        m.setName(Prompt.inputString(""));
         System.out.printf("이메일(%s)?", m.getEmail());
-        m.setEmail = Prompt.inputString("");
+        m.setEmail(Prompt.inputString(""));
         System.out.println("새 암호?");
-        m.setPassword = Prompt.inputString("");
-        m.setGender = inputGender(m.getGender());
+        m.setPassword(Prompt.inputString(""));
+        m.setGender(inputGender(m.getGender()));
 
         return;
       }
