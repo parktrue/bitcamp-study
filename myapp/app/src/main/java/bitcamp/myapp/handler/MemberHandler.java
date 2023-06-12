@@ -8,11 +8,7 @@ public class MemberHandler {
   static final int MAX_SIZE = 100;
   static Member[] members = new Member[MAX_SIZE]; // 레퍼런스 100개 생성
 
-  static int userId = 1;
   static int length = 0;
-
-  static final char MALE = 'M';
-  static final char FEMALE = 'W';
 
   public static void inputMember() {
     if (!available()) {
@@ -25,7 +21,6 @@ public class MemberHandler {
     m.setEmail(Prompt.inputString("이메일? "));
     m.setPassword(Prompt.inputString("암호? "));
     m.setGender(inputGender((char) 0));
-    m.setNo(userId++);
 
     // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게
     // 레퍼런스 배열에 담는다.
@@ -94,9 +89,9 @@ public class MemberHandler {
 
       switch (menuNo) {
         case "1":
-          return MALE;
+          return Member.MALE;
         case "2":
-          return FEMALE;
+          return Member.FEMALE;
         default:
           System.out.println("무효한 번호입니다.");
       }
