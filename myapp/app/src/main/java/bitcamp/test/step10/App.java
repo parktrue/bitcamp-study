@@ -20,7 +20,7 @@ public class App {
     int sum;
     float aver;
 
-    void compute(Score s) {
+    void compute() {
       this.sum = this.kor + this.eng + this.math;
       this.aver = this.sum / 3f;
     }
@@ -32,7 +32,7 @@ public class App {
       s.kor = kor;
       s.eng = eng;
       s.math = math;
-      s.compute(s);
+      s.compute();
       return s;
     }
   }

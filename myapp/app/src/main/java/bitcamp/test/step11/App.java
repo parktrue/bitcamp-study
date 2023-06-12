@@ -21,7 +21,7 @@ public class App {
     int sum;
     float aver;
 
-    // 생성자 : 인슨턴스를 생성한 직후 호출하는 메서드
+    // 생성자 : 인스턴스를 생성한 직후 호출하는 메서드, 리턴값이 없다.
     Score(String name, int kor, int eng, int math) {
       this.name = name;
       this.kor = kor;
