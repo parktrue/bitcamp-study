@@ -1,14 +1,14 @@
 package bitcamp.myapp.vo;
 
-// 데이터를 저장할 메모리 설계도 > 메모리 준비 > 설계도에 따라 변수를 생성한다.
 public class Member {
-  // 모든 인스턴스 공유하는 값은 스태틱 필드에 보관한다.
+
+  // 모든 인스턴스가 공유하는 값은 스태틱 필드에 보관한다.
   private static int userId = 1;
 
   // 상수는 스태틱 필드로 정의한다.
   // 정보를 다룰 때는 그 정보를 갖고 있는 클래스에 그 기능을 둔다.
   // 필드도 마찬가지이다.
-  // => GRASP 패턴 : Infomation Expert
+  // => GRASP 패턴: Information Expert
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
 
@@ -22,9 +22,9 @@ public class Member {
 
   // 생성자는 인스턴스를 생성한 후 필드를 초기화시키는 일을 한다.
   // 인스턴스를 사용할 때 문제가 없도록 유효한 값으로 초기화시킨다.
-  // 기본 생성자(dafault constructor)는 개발자가 생성자를 정의하지 않을 때
+  // 기본 생성자(default constructor)는 개발자가 생성자를 정의하지 않을 때
   // 컴파일러가 추가해주는 생성자다.
-  // 물론 개발자가 직접 추가할 수 있다.
+  // 물론 개발자가 직접 추가할 수도 있다.
   public Member() {
     this.no = userId++;
   }
