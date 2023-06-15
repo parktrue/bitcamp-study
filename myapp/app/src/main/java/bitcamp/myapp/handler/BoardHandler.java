@@ -57,10 +57,7 @@ public class BoardHandler implements Handler {
     board.setWriter(this.prompt.inputString("작성자? "));
     board.setPassword(this.prompt.inputString("암호? "));
 
-    if (!this.list.add(board)) {
-      System.out.println("더이상 입력할 수 없습니다!");
-      return;
-    }
+    this.list.add(board);
   }
 
   private void printBoards() {
@@ -70,12 +67,8 @@ public class BoardHandler implements Handler {
 
     Board[] arr = this.list.list();
     for (Board board : arr) {
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
+          board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
