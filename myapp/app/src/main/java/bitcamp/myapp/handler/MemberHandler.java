@@ -3,11 +3,9 @@ package bitcamp.myapp.handler;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Prompt;
 
-// MemberHandler는 Handler 규칙에 따라 메서드를 구현했다.
-// 즉 Handler 인터페이스에 선언된 메서드를 모두 정의했다.
 public class MemberHandler implements Handler {
 
-  private MemberList list = new MemberList();
+  private ArrayList list = new ArrayList();
   private Prompt prompt;
   private String title;
 
@@ -16,8 +14,6 @@ public class MemberHandler implements Handler {
     this.title = title;
   }
 
-  // Handler 인터페이스에 선언된 대로 메서드를 정의했다.
-  // => "Handler 인터페이스를 구현했다."라고 표현한다.
   public void execute() {
     printMenu();
 
@@ -69,8 +65,9 @@ public class MemberHandler implements Handler {
     System.out.println("번호, 이름, 이메일, 성별");
     System.out.println("---------------------------------------");
 
-    Member[] arr = this.list.list();
-    for (Member m : arr) {
+    Object[] arr = this.list.list();
+    for (Object obj : arr) {
+      Member m = (Member) obj;
       System.out.printf("%d, %s, %s, %s\n",
           m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
@@ -80,7 +77,7 @@ public class MemberHandler implements Handler {
   private void viewMember() {
     int memberNo = this.prompt.inputInt("번호? ");
 
-    Member m = this.list.get(memberNo);
+    Member m = (Member) this.list.get(new Member(memberNo));
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
@@ -98,7 +95,7 @@ public class MemberHandler implements Handler {
   private void updateMember() {
     int memberNo = this.prompt.inputInt("번호? ");
 
-    Member m = this.list.get(memberNo);
+    Member m = (Member) this.list.get(new Member(memberNo));
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다!");
       return;
@@ -136,7 +133,7 @@ public class MemberHandler implements Handler {
   }
 
   private void deleteMember() {
-    if (!this.list.delete(this.prompt.inputInt("번호? "))) {
+    if (!this.list.delete(new Member(this.prompt.inputInt("번호? ")))) {
       System.out.println("해당 번호의 회원이 없습니다!");
     }
   }
