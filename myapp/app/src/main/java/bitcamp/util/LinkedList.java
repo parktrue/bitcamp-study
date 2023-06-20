@@ -54,8 +54,8 @@ public class LinkedList implements List {
     Node node = new Node();
     node.value = value;
 
-    if (head == null) {
-      head = node;
+    if (this.head == null) {
+      this.head = node;
     } else if (this.tail != null) {
       this.tail.next = node;
     }
@@ -70,7 +70,7 @@ public class LinkedList implements List {
   public Object[] toArray() {
     Object[] arr = new Object[this.size];
 
-    Node cursor = head;
+    Node cursor = this.head;
     for (int i = 0; i < this.size; i++) {
       arr[i] = cursor.value;
       cursor = cursor.next;
@@ -101,17 +101,17 @@ public class LinkedList implements List {
       if (cursor.value.equals(value)) {
         if (prev == null) {
           // 삭제할 노드가 시작 노드라면
-          head = cursor.next;
+          this.head = cursor.next;
 
           // 삭제할 노드가 시작이자 끝 노드라면
-          if (head == null) {
-            tail = null;
+          if (this.head == null) {
+            this.tail = null;
           }
 
         } else if (cursor.next == null) {
           // 삭제할 노드가 끝 노드라면
-          tail = prev;
-          tail.next = null;
+          this.tail = prev;
+          this.tail.next = null;
 
         } else {
           // 중간 노드라면, 다음 노드의 주소를 이전 노드에 저장한다.
