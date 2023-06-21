@@ -1,10 +1,9 @@
 package bitcamp.util;
 
-
 public class Queue extends LinkedList {
+
   public static void main(String[] args) {
     Queue q = new Queue();
-
     q.offer("홍길동");
     q.offer("임꺽정");
     q.offer("유관순");
@@ -16,6 +15,7 @@ public class Queue extends LinkedList {
     System.out.println(q.poll());
     System.out.println(q.poll());
     System.out.println(q.poll());
+
     System.out.println(q.poll());
   }
 
@@ -29,5 +29,4 @@ public class Queue extends LinkedList {
     }
     return this.remove(0);
   }
-
 }
