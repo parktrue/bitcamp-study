@@ -10,12 +10,8 @@ public class B extends A {
     //    super(); // 즉 개발자가 붙이지 않으면 자동으로 붙인다.
 
     System.out.println("B() 생성자!");
-    this.v2 = 200;
+    this.v2 = 200;z
   }
 }
-
-
-
-
 
 
