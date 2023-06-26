@@ -6,7 +6,7 @@ import bitcamp.util.List;
 
 public class BoardUpdateListener extends AbstractBoardListener {
 
-  public BoardUpdateListener(List list) {
+  public BoardUpdateListener(List<Board> list) {
     super(list);
   }
 
@@ -29,14 +29,5 @@ public class BoardUpdateListener extends AbstractBoardListener {
     board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
   }
 }
-
-
-
-
-
-
-
-
-
 
 

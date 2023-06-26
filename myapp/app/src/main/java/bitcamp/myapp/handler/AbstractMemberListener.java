@@ -7,9 +7,9 @@ import bitcamp.util.List;
 
 public abstract class AbstractMemberListener implements ActionListener {
 
-  protected List list;
+  protected List<Member> list;
 
-  public AbstractMemberListener(List list) {
+  public AbstractMemberListener(List<Member> list) {
     this.list = list;
   }
 
@@ -19,7 +19,7 @@ public abstract class AbstractMemberListener implements ActionListener {
 
   protected Member findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
-      Member m = (Member) this.list.get(i);
+      Member m = this.list.get(i);
       if (m.getNo() == no) {
         return m;
       }
@@ -36,10 +36,7 @@ public abstract class AbstractMemberListener implements ActionListener {
     }
 
     while (true) {
-      String menuNo = prompt.inputString(label +
-          "  1. 남자\n" +
-          "  2. 여자\n" +
-          "> ");
+      String menuNo = prompt.inputString(label + "  1. 남자\n" + "  2. 여자\n" + "> ");
 
       switch (menuNo) {
         case "1":

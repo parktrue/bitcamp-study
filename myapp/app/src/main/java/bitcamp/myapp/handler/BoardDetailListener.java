@@ -6,7 +6,7 @@ import bitcamp.util.List;
 
 public class BoardDetailListener extends AbstractBoardListener {
 
-  public BoardDetailListener(List list) {
+  public BoardDetailListener(List<Board> list) {
     super(list);
   }
 
@@ -28,14 +28,5 @@ public class BoardDetailListener extends AbstractBoardListener {
     board.setViewCount(board.getViewCount() + 1);
   }
 }
-
-
-
-
-
-
-
-
-
 
 

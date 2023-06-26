@@ -6,7 +6,7 @@ import bitcamp.util.List;
 
 public class BoardListListener extends AbstractBoardListener {
 
-  public BoardListListener(List list) {
+  public BoardListListener(List<Board> list) {
     super(list);
   }
 
@@ -17,25 +17,12 @@ public class BoardListListener extends AbstractBoardListener {
     System.out.println("---------------------------------------");
 
     for (int i = 0; i < this.list.size(); i++) {
-      Board board = (Board) this.list.get(i);
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+      Board board = this.list.get(i);
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
+          board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
 }
-
-
-
-
-
-
-
-
-
 
 
