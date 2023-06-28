@@ -30,3 +30,12 @@ public class BoardDetailListener extends AbstractBoardListener {
 }
 
 
+
+
+
+
+
+
+
+
+

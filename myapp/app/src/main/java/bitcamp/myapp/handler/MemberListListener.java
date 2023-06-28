@@ -19,10 +19,10 @@ public class MemberListListener extends AbstractMemberListener {
 
     // 목록에서 데이터를 대신 꺼내주는 객체를 얻는다.
     Iterator<Member> iterator = list.iterator();
-
     while (iterator.hasNext()) {
       Member m = iterator.next();
-      System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
+      System.out.printf("%d, %s, %s, %s\n",
+          m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender()));
     }
   }
