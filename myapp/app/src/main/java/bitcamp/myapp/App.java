@@ -1,9 +1,11 @@
 package bitcamp.myapp;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +23,7 @@ import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.CsvObject;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
@@ -60,15 +63,15 @@ public class App {
   }
 
   private void loadData() {
-    loadMember();
-    loadBoard("board.data", boardList);
-    loadBoard("reading.data", readingList);
+    loadCsv("member.csv", memberList, Member.class);
+    loadCsv("board.csv", boardList, Board.class);
+    loadCsv("reading.csv", readingList, Board.class);
   }
 
   private void saveData() {
-    saveMember();
-    saveBoard("board.data", boardList);
-    saveBoard("reading.data", readingList);
+    saveCsv("member.csv", memberList);
+    saveCsv("board.csv", boardList);
+    saveCsv("reading.csv", readingList);
   }
 
   private void prepareMenu() {
@@ -103,53 +106,20 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
-  private void loadMember() {
+  @SuppressWarnings("unchecked")
+  private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz) {
     try {
-      FileInputStream in0 = new FileInputStream("member.data");
-      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
+      Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
 
-      int size = in.readShort();
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
 
-      for (int i = 0; i < size; i++) {
-        Member member = new Member();
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setGender(in.readChar());
-        memberList.add(member);
+      String line = null;
+
+      while ((line = in.readLine()) != null) {
+        list.add((T) factoryMethod.invoke(null, line)); // Reflection API를 사용하여 스태틱 메서드 호
+        // list.add(Member.fromCsv(line)); // 직접 스태틱 메서드 호출
       }
-
-      // 데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다.
-      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
-
-      in.close();
-
-    } catch (Exception e) {
-      System.out.println("회원 정보를 읽는 중 오류 발생!");
-    }
-  }
-
-  private void loadBoard(String filename, List<Board> list) {
-    try {
-      FileInputStream in0 = new FileInputStream(filename);
-      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
-
-      int size = in.readShort();
-
-      for (int i = 0; i < size; i++) {
-        Board board = new Board();
-        board.setNo(in.readInt());
-        board.setTitle(in.readUTF());
-        board.setContent(in.readUTF());
-        board.setWriter(in.readUTF());
-        board.setPassword(in.readUTF());
-        board.setViewCount(in.readInt());
-        board.setCreatedDate(in.readLong());
-        list.add(board);
-      }
-
-      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
 
       in.close();
 
@@ -158,42 +128,19 @@ public class App {
     }
   }
 
-  private void saveMember() {
+  private void saveCsv(String filename, List<? extends CsvObject> list) {
     try {
-      FileOutputStream out0 = new FileOutputStream("member.data");
-      DataOutputStream out = new DataOutputStream(out0); // <== Decorator(장식품) 역할 수행!
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
+      PrintWriter out = new PrintWriter(out1); // <== Decorator(장식품) 역할 수행!
 
-      out.writeShort(memberList.size());
-
-      for (Member member : memberList) {
-        out.writeInt(member.getNo());
-        out.writeUTF(member.getName());
-        out.writeUTF(member.getEmail());
-        out.writeUTF(member.getPassword());
-        out.writeChar(member.getGender());
-      }
-      out.close();
-
-    } catch (Exception e) {
-      System.out.println("회원 정보를 저장하는 중 오류 발생!");
-    }
-  }
-
-  private void saveBoard(String filename, List<Board> list) {
-    try {
-      FileOutputStream out0 = new FileOutputStream(filename);
-      DataOutputStream out = new DataOutputStream(out0); // <== Decorator(장식품) 역할 수행!
-
-      out.writeShort(list.size());
-
-      for (Board board : list) {
-        out.writeInt(board.getNo());
-        out.writeUTF(board.getTitle());
-        out.writeUTF(board.getContent());
-        out.writeUTF(board.getWriter());
-        out.writeUTF(board.getPassword());
-        out.writeInt(board.getViewCount());
-        out.writeLong(board.getCreatedDate());
+      for (CsvObject obj : list) {
+        out.println(obj.toCsvString());
+        // board와 member 클래스에 필드가 추가/변경/삭제 되더라도,
+        // 여기 코드를 변경할 필요가 없다.
+        // 이것이 Information Expert 설계를 적용하는 이유다!
+        // 설계를 어떻게 하느냐에 따라 유지보수가 쉬워질 수도 있고,
+        // 어려워질 수도 있다.
       }
       out.close();
 

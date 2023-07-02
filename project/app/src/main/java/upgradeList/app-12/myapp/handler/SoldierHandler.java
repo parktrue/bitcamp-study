@@ -24,7 +24,7 @@ public class SoldierHandler {
 
     Soldier m = new Soldier();
     m.name = Prompt.inputString("이름? ");
-    m.age = Prompt.inputString("나이? ");
+    m.age = Prompt.inputInt("나이? ");
     m.rank = inputRank("계급? ");
     m.no = userId++;
 
@@ -37,7 +37,7 @@ public class SoldierHandler {
     System.out.println("-----------군인 목록-----------");
     for (int i = 0; i < length; i++) {
       Soldier m = Soldiers[i];
-      System.out.printf("%d, %s, %s, %s\n", m.no, m.name, m.age, m.rank);
+      System.out.printf("%d, %s, %d, %s\n", m.no, m.name, m.age, m.rank);
     }
   }
 
@@ -47,7 +47,7 @@ public class SoldierHandler {
       Soldier m = Soldiers[i];
       if (m.no == Integer.parseInt(SoldierNo)) {
         System.out.printf("이름: %s\n", m.name);
-        System.out.printf("나이: %s\n", m.age);
+        System.out.printf("나이: %d\n", m.age);
         System.out.printf("계급: %s\n", m.rank);
         return;
       }
@@ -62,8 +62,8 @@ public class SoldierHandler {
       if (m.no == Integer.parseInt(SoldierNo)) {
         System.out.printf("이름(%s)?", m.name);
         m.name = Prompt.inputString("");
-        System.out.printf("나이(%s)?", m.age);
-        m.age = Prompt.inputString("");
+        System.out.printf("나이(%d)?", m.age);
+        m.age = Prompt.inputInt("");
         System.out.println("계급");
         m.rank = inputRank(String.format("계급(%s)?", m.rank));
         return;
