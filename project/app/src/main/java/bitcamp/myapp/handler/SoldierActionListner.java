@@ -1,29 +1,10 @@
 package bitcamp.myapp.handler;
 
-import java.util.List;
-import bitcamp.myapp.vo.Soldier;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 
-public abstract class AbstractSoldierListener implements ActionListener {
-
-  protected List<Soldier> list;
-
-  public AbstractSoldierListener(List<Soldier> list) {
-    this.list = list;
-  }
-
-  protected Soldier findBy(int no) {
-    for (int i = 0; i < this.list.size(); i++) {
-      Soldier s = this.list.get(i);
-      if (s.getNo() == no) {
-        return s;
-      }
-    }
-    return null;
-  }
-
-  protected String inputRank(String rank, BreadcrumbPrompt prompt) {
+public interface SoldierActionListner extends ActionListener {
+  static String inputRank(String rank, BreadcrumbPrompt prompt) {
     String label;
     if (rank == null) {
       label = "계급?\n";
@@ -49,5 +30,4 @@ public abstract class AbstractSoldierListener implements ActionListener {
       }
     }
   }
-
 }
