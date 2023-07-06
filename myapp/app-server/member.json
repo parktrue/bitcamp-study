@@ -1,9 +1,9 @@
 [
   {
-    "no": 1,
-    "name": "1",
-    "email": "1",
-    "password": "1",
-    "gender": "M"
+    "no": 3,
+    "name": "hongu",
+    "email": "hongu@kida.go.kr",
+    "password": "123",
+    "gender": "W"
   }
 ]
