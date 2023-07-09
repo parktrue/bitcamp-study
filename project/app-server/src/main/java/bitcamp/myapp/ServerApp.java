@@ -68,7 +68,7 @@ public class ServerApp {
         case "board/findBy":
           Board board = boardDao.findBy(request.getObject(Integer.class));
           if (board == null) {
-            response.status(ResponseEntity.ERROR).result("해당 번호의 게시글이 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(board);
           }
@@ -91,7 +91,7 @@ public class ServerApp {
         case "soldier/findBy":
           Soldier soldier = soldierDao.findBy(request.getObject(Integer.class));
           if (soldier == null) {
-            response.status(ResponseEntity.ERROR).result("해당 번호의 병사가 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(soldier);
           }
@@ -105,7 +105,7 @@ public class ServerApp {
           response.status(ResponseEntity.SUCCESS).result(value);
           break;
         default:
-          response.status(ResponseEntity.ERROR).result("해당 명령을 지원하지 않습니다!");
+          response.status(ResponseEntity.SUCCESS);
       }
 
       out.writeUTF(response.toJson());

@@ -3,10 +3,9 @@ package bitcamp.myapp;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import bitcamp.dao.DaoBuilder;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.BoardNetworkDao;
 import bitcamp.myapp.dao.SoldierDao;
-import bitcamp.myapp.dao.SoldierNetworkDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -30,7 +29,6 @@ public class ClientApp {
 
   SoldierDao soldierDao;
   BoardDao boardDao;
-  BoardDao readingDao;
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
@@ -42,9 +40,10 @@ public class ClientApp {
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
 
-    this.soldierDao = new SoldierNetworkDao("soldier", in, out);
-    this.boardDao = new BoardNetworkDao("board", in, out);
-    this.readingDao = new BoardNetworkDao("reading", in, out);
+    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+
+    this.soldierDao = daoBuilder.build("soldier", SoldierDao.class);
+    this.boardDao = daoBuilder.build("board", BoardDao.class);
 
     prepareMenu();
   }
