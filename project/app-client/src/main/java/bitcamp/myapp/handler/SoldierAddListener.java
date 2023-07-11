@@ -4,8 +4,7 @@ import bitcamp.myapp.dao.SoldierDao;
 import bitcamp.myapp.vo.Soldier;
 import bitcamp.util.BreadcrumbPrompt;
 
-public class SoldierAddListener implements SoldierActionListner {
-
+public class SoldierAddListener implements SoldierActionListener {
 
   SoldierDao soldierDao;
 
@@ -15,12 +14,12 @@ public class SoldierAddListener implements SoldierActionListner {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-
     Soldier s = new Soldier();
     s.setNo(Soldier.soldierId++);
     s.setName(prompt.inputString("이름? "));
     s.setAge(prompt.inputInt("나이? "));
-    s.setRank(SoldierActionListner.inputRank(null, prompt));
+    s.setRank(SoldierActionListener.inputRank(null, prompt));
+    s.setEnlistmentDate(prompt.inputLocalDate("입대일 (yyyy-MM-dd 형식): "));
 
     soldierDao.insert(s);
   }

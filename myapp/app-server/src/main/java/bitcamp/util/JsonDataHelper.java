@@ -12,8 +12,6 @@ import com.google.gson.reflect.TypeToken;
 import bitcamp.myapp.vo.AutoIncrement;
 
 public class JsonDataHelper {
-
-
   public static <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
     try {
       FileReader in0 = new FileReader(filename);

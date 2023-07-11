@@ -2,14 +2,14 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import bitcamp.myapp.dao.BoardDao;
+import java.util.HashMap;
 import bitcamp.myapp.dao.BoardListDao;
-import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MemberListDao;
-import bitcamp.myapp.vo.Board;
-import bitcamp.myapp.vo.Member;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
@@ -18,12 +18,14 @@ public class ServerApp {
   int port;
   ServerSocket serverSocket;
 
-  MemberDao memberDao = new MemberListDao("member.json");
-  BoardDao boardDao = new BoardListDao("board.json");
-  BoardDao readingDao = new BoardListDao("reading.json");
+  HashMap<String, Object> daoMap = new HashMap<>();
 
   public ServerApp(int port) throws Exception {
     this.port = port;
+
+    daoMap.put("member", new MemberListDao("member.json"));
+    daoMap.put("board", new BoardListDao("board.json"));
+    daoMap.put("reading", new BoardListDao("reading.json"));
   }
 
   public void close() throws Exception {
@@ -35,9 +37,7 @@ public class ServerApp {
       System.out.println("실행 예) java ... bitcamp.myapp.ServerApp 포트번호");
       return;
     }
-    // Object obj = "Hello";
-    // System.out.println(obj);
-    // System.out.println(new Gson().toJson(obj));
+
     ServerApp app = new ServerApp(Integer.parseInt(args[0]));
     app.execute();
     app.close();
@@ -49,117 +49,81 @@ public class ServerApp {
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
-    Socket socket = serverSocket.accept();
-    DataInputStream in = new DataInputStream(socket.getInputStream());
-    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
-
     while (true) {
+      // 파라미터에 있는 문장을 실행한 후 메서드 실행 즉 서버소켓으로부터 리턴이 되어야 프로세스리퀘스트가 실행된다.
+      processRequest(serverSocket.accept());
+    }
+  }
+
+  public static Method findMethod(Object obj, String methodName) {
+    Method[] methods = obj.getClass().getDeclaredMethods();
+    for (int i = 0; i < methods.length; i++) {
+      if (methods[i].getName().equals(methodName)) {
+        return methods[i];
+      }
+    }
+    return null;
+  }
+
+  public static Object call(Object obj, Method method, RequestEntity request) throws Exception {
+    Parameter[] params = method.getParameters();
+    if (params.length > 0) {
+      return method.invoke(obj, request.getObject(params[0].getType()));
+    } else {
+      return method.invoke(obj);
+    }
+  }
+
+  // 클라이언트와 접속이 이루어지면 클라이언트의 요청을 처리한다.
+  public void processRequest(Socket socket) {
+    try (Socket s = socket;
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+
+      InetSocketAddress socketAdress = (InetSocketAddress) socket.getRemoteSocketAddress();
+      System.out.printf("%s:%s 클라이언트가 접속!\n", socketAdress.getHostString(), socketAdress.getPort());
+
+      // 클라이언트 요청을 반복해서 처리하지 않는다.
+      // 접속 => 요청 => 실행 => 응답 => 연결 해제
       RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
       String command = request.getCommand();
       System.out.println(command);
 
-      ResponseEntity response = new ResponseEntity();
+      String[] values = command.split("/");
+      String dataName = values[0];
+      String methodName = values[1];
 
-      if (command.equals("quit")) {
-        break;
+      Object dao = daoMap.get(dataName);
+      if (dao == null) {
+        out.writeUTF(
+            new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
+        return;
       }
 
-      switch (command) {
-        case "board/list":
-          response.status(ResponseEntity.SUCCESS).result(boardDao.list());
-          break;
-
-        case "board/insert":
-          boardDao.insert(request.getObject(Board.class));
-          response.status(ResponseEntity.SUCCESS);
-          break;
-
-        case "board/findBy":
-          Board board = boardDao.findBy(request.getObject(Integer.class));
-          if (board == null) {
-            response.status(ResponseEntity.SUCCESS);
-          } else {
-            response.status(ResponseEntity.SUCCESS).result(board);
-          }
-          break;
-
-        case "board/update":
-          int value = boardDao.update(request.getObject(Board.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        case "board/delete":
-          value = boardDao.delete(request.getObject(Integer.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-        case "reading/list":
-          response.status(ResponseEntity.SUCCESS).result(readingDao.list());
-          break;
-
-        case "reading/insert":
-          readingDao.insert(request.getObject(Board.class));
-          response.status(ResponseEntity.SUCCESS);
-          break;
-
-        case "reading/findBy":
-          board = readingDao.findBy(request.getObject(Integer.class));
-          if (board == null) {
-            response.status(ResponseEntity.SUCCESS);
-          } else {
-            response.status(ResponseEntity.SUCCESS).result(board);
-          }
-          break;
-
-        case "reading/update":
-          value = readingDao.update(request.getObject(Board.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        case "reading/delete":
-          value = readingDao.delete(request.getObject(Integer.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        case "member/list":
-          response.status(ResponseEntity.SUCCESS).result(memberDao.list());
-          break;
-
-        case "member/insert":
-          memberDao.insert(request.getObject(Member.class));
-          response.status(ResponseEntity.SUCCESS);
-          break;
-
-        case "member/findBy":
-          Member member = memberDao.findBy(request.getObject(Integer.class));
-          if (member == null) {
-            response.status(ResponseEntity.SUCCESS);
-          } else {
-            response.status(ResponseEntity.SUCCESS).result(member);
-          }
-          break;
-
-        case "member/update":
-          value = memberDao.update(request.getObject(Member.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        case "member/delete":
-          value = memberDao.delete(request.getObject(Integer.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        default:
-          response.status(ResponseEntity.ERROR).result("해당 명령을 지원하지 않습니다!");
-
+      Method method = findMethod(dao, methodName);
+      if (method == null) {
+        out.writeUTF(
+            new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
+        return;
       }
-      out.writeUTF(response.toJson());
+
+      try {
+        Object result = call(dao, method, request);
+
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(result);
+        out.writeUTF(response.toJson());
+      } catch (Exception e) {
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.ERROR);
+        response.result(e.getMessage());
+        out.writeUTF(response.toJson());
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-
-    in.close();
-    out.close();
-    socket.close();
   }
 }
 
