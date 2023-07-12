@@ -248,6 +248,41 @@
   - Client와 Server 개념
   - 프로토콜에 따라 애플리케이션 간에 데이터를 주고 받기
 
-## 38. Reflection API를 활용하여 메서드 호출 자동화하기
+## 38. DAO 프록시 객체를 자동 생성하기
 
+- java.lang.reflect.Proxy 클래스 사용법
+- 프록시 객체의 구동원리 이해
+
+
+## 39. Reflection API를 활용하여 DAO 메서드 호출을 자동화하기
+
+- Reflection API를 사용하는 방법
 - 서버의 DAO 메서드 호출을 자동화 하는 방법
+
+
+## 40. 예외 처리하기
+
+- 예외가 발생했을 때 시스템을 멈추기 않게 하는 방법
+- try ~ catch ~ finally 사용법
+
+## 41. 여러 클라이언트의 요청을 순차적으로 처리하기: Stateful 방식
+
+- 클라이언트 요청을 순차적으로 처리하는 방법
+- 구동 원리와 문제점
+
+## 42. 여러 클라이언트의 요청을 순차적으로 처리하기: Stateless 방식
+
+- Stateless 방식으로 통신하는 방법
+- 구동 원리와 Stateful 방식 대비 이점
+- Stateless 방식의 문제점
+
+## 43. 여러 클라이언트 요청을 동시에 처리하기: Thread 적용
+
+- 멀티태스킹의 메커니즘 이해
+  - 프로세스 스케쥴링: Round Robin 방식, Priority + Aging 방식
+  - 컨텍스트 스위칭 개념
+  - 프로세스 복제(fork)방식과 스레드 방식 비교
+  - 임계영역(Critical Region, Critical Section): 세마포어(Semaphore)와 뮤텍스(Mutex)
+- 스레드의 구동원리와 사용법
+  - 스레드의 라이프사이클 이해
+  - Thread 클래스와 Runnable 인터페이스 사용법

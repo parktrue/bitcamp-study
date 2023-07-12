@@ -44,14 +44,28 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
+
+    class RequestAgentThread extends Thread {
+      Socket socket;
+
+      public RequestAgentThread(Socket socket) {
+        this.socket = socket;
+      }
+
+      @Override
+      public void run() {
+        processRequest(socket);
+      }
+
+    }
+
     System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
     while (true) {
-      // 파라미터에 있는 문장을 실행한 후 메서드 실행 즉 서버소켓으로부터 리턴이 되어야 프로세스리퀘스트가 실행된다.
-      processRequest(serverSocket.accept());
+      new RequestAgentThread(serverSocket.accept()).start();
     }
   }
 
