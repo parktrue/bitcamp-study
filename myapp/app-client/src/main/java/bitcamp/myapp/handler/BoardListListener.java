@@ -1,5 +1,6 @@
 package bitcamp.myapp.handler;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
@@ -9,6 +10,7 @@ import bitcamp.util.BreadcrumbPrompt;
 public class BoardListListener implements ActionListener {
 
   BoardDao boardDao;
+  SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
   public BoardListListener(BoardDao boardDao) {
     this.boardDao = boardDao;
@@ -23,24 +25,11 @@ public class BoardListListener implements ActionListener {
     List<Board> list = boardDao.list();
 
     for (Board board : list) {
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+      System.out.printf("%d, %s, %s, %d, %s\n", board.getNo(), board.getTitle(), board.getWriter(),
+          board.getViewCount(), dateFormatter.format(board.getCreatedDate()));
     }
   }
 
 }
-
-
-
-
-
-
-
-
-
 
 
