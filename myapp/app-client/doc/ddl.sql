@@ -1,4 +1,4 @@
-create table myapp_board (
+create table myapp_board(
   board_no int not null,
   title varchar(255) not null,
   content text null,
@@ -28,4 +28,8 @@ alter table myapp_member
 -- 게시판에 카테고리 컬럼 추가
 alter table myapp_board
   add column category int not null;
+  
+  
+  
+  
   

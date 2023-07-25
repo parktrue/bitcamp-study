@@ -1,16 +1,16 @@
 -- myapp_member 테이블 예제 데이터
 insert into myapp_member(member_no, name, email, password, gender) 
-  values (1, 'aaa', 'aaa@test.com', '1111', 'W');
+  values(1, 'aaa', 'aaa@test.com', '1111', 'W');
 insert into myapp_member(member_no, name, email, password, gender) 
-  values (2, 'bbb', 'bbb@test.com', '1112', 'M');
+  values(2, 'bbb', 'bbb@test.com', '1111', 'M');
 insert into myapp_member(member_no, name, email, password, gender) 
-  values (3, 'ccc', 'ccc@test.com', '1115', 'W');
+  values(3, 'ccc', 'ccc@test.com', '1111', 'W');
 insert into myapp_member(member_no, name, email, password, gender) 
-  values (4, 'ddd', 'ddd@test.com', '1111', 'W');
+  values(4, 'ddd', 'ddd@test.com', '1111', 'M');
 insert into myapp_member(member_no, name, email, password, gender) 
-  values (5, 'eee', 'eee@test.com', '1111', 'W');
+  values(5, 'eee', 'eee@test.com', '1111', 'W');
 insert into myapp_member(member_no, name, email, password, gender) 
-  values (6, 'fff', 'fff@test.com', '1111', 'W');
+  values(6, 'fff', 'fff@test.com', '1111', 'M');
 
 -- myapp_board 테이블 예제 데이터
 insert into myapp_board(board_no, title, content, writer, password, category)
