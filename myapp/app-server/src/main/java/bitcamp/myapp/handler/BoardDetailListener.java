@@ -1,6 +1,7 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
@@ -9,9 +10,11 @@ import bitcamp.util.BreadcrumbPrompt;
 public class BoardDetailListener implements ActionListener {
 
   BoardDao boardDao;
+  SqlSessionFactory sqlSessionFactory;
 
-  public BoardDetailListener(BoardDao boardDao) {
+  public BoardDetailListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
     this.boardDao = boardDao;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -29,9 +32,26 @@ public class BoardDetailListener implements ActionListener {
     prompt.printf("작성자: %s\n", board.getWriter().getName());
     prompt.printf("조회수: %s\n", board.getViewCount());
     prompt.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
-    board.setViewCount(board.getViewCount() + 1);
-    boardDao.update(board);
+
+    try {
+      board.setViewCount(board.getViewCount() + 1);
+      boardDao.updateCount(board);
+      sqlSessionFactory.openSession(false).commit();
+
+    } catch (Exception e) {
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
+    }
   }
 }
+
+
+
+
+
+
+
+
+
 
 

@@ -1,21 +1,21 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class BoardAddListener implements ActionListener {
 
   BoardDao boardDao;
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
-  public BoardAddListener(BoardDao boardDao, DataSource ds) {
+  public BoardAddListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
     this.boardDao = boardDao;
-    this.ds = ds;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -27,24 +27,30 @@ public class BoardAddListener implements ActionListener {
 
     try {
       boardDao.insert(board);
-      Thread.sleep(5000);
+      //      Thread.sleep(5000);
+      //
+      //      boardDao.insert(board);
+      //      Thread.sleep(5000);
+      //
+      //      boardDao.insert(board);
+      //      Thread.sleep(5000);
 
+      sqlSessionFactory.openSession(false).commit();
 
-      boardDao.insert(board);
-      Thread.sleep(5000);
-
-      boardDao.insert(board);
-      Thread.sleep(5000);
-      ds.getConnection().commit();
     } catch (Exception e) {
-      try {
-        ds.getConnection().rollback();
-      } catch (Exception e2) {
-      }
+      sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
-
   }
 }
+
+
+
+
+
+
+
+
+
 
 

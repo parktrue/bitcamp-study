@@ -1,6 +1,7 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
@@ -10,9 +11,11 @@ import bitcamp.util.BreadcrumbPrompt;
 public class BoardUpdateListener implements ActionListener {
 
   BoardDao boardDao;
+  SqlSessionFactory sqlSessionFactory;
 
-  public BoardUpdateListener(BoardDao boardDao) {
+  public BoardUpdateListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
     this.boardDao = boardDao;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -29,10 +32,17 @@ public class BoardUpdateListener implements ActionListener {
     board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
     board.setWriter((Member) prompt.getAttribute("loginUser"));
 
-    if (boardDao.update(board) == 0) {
-      prompt.println("게시글 변경 권한이 없습니다.");
-    } else {
-      prompt.println("변경했습니다!");
+    try {
+      if (boardDao.update(board) == 0) {
+        prompt.println("게시글 변경 권한이 없습니다.");
+      } else {
+        prompt.println("변경했습니다!");
+      }
+      sqlSessionFactory.openSession(false).commit();
+
+    } catch (Exception e) {
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
     }
   }
 }

@@ -1,18 +1,20 @@
-package bitcamp.dao;
+package bitcamp.myapp.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import bitcamp.myapp.dao.MemberDao;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DataSource;
 
 public class MySQLMemberDao implements MemberDao {
 
+  SqlSessionFactory sqlSessionFactory;
   DataSource ds;
 
-  public MySQLMemberDao(DataSource ds) {
+  public MySQLMemberDao(SqlSessionFactory sqlSessionFactory, DataSource ds) {
+    this.sqlSessionFactory = sqlSessionFactory;
     this.ds = ds;
   }
 
@@ -34,7 +36,7 @@ public class MySQLMemberDao implements MemberDao {
   }
 
   @Override
-  public List<Member> list() {
+  public List<Member> findAll() {
     try (
         PreparedStatement stmt = ds.getConnection(false).prepareStatement(
             "select member_no, name, email, gender" + " from myapp_member" + " order by name asc");

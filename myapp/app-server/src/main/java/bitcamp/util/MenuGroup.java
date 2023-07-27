@@ -17,7 +17,6 @@ public class MenuGroup extends Menu {
 
   @Override
   public void execute(BreadcrumbPrompt prompt) {
-
     try {
       prompt.appendBreadcrumb(this.getTitle());
 

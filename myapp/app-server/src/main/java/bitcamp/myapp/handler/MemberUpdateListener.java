@@ -1,6 +1,7 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
@@ -8,9 +9,11 @@ import bitcamp.util.BreadcrumbPrompt;
 public class MemberUpdateListener implements MemberActionListener {
 
   MemberDao memberDao;
+  SqlSessionFactory sqlSessionFactory;
 
-  public MemberUpdateListener(MemberDao memberDao) {
+  public MemberUpdateListener(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
     this.memberDao = memberDao;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -19,7 +22,7 @@ public class MemberUpdateListener implements MemberActionListener {
 
     Member m = memberDao.findBy(memberNo);
     if (m == null) {
-      System.out.println("해당 번호의 회원이 없습니다!");
+      prompt.println("해당 번호의 회원이 없습니다!");
       return;
     }
 
@@ -28,7 +31,17 @@ public class MemberUpdateListener implements MemberActionListener {
     m.setPassword(prompt.inputString("새암호? "));
     m.setGender(MemberActionListener.inputGender(m.getGender(), prompt));
 
-    memberDao.update(m);
+    try {
+      memberDao.update(m);
+      sqlSessionFactory.openSession(false).commit();
+
+    } catch (Exception e) {
+      try {
+        sqlSessionFactory.openSession(false).rollback();
+      } catch (Exception e2) {
+      }
+      throw new RuntimeException(e);
+    }
   }
 
 }
