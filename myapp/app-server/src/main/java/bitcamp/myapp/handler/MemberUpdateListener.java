@@ -36,12 +36,8 @@ public class MemberUpdateListener implements MemberActionListener {
       sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      try {
-        sqlSessionFactory.openSession(false).rollback();
-      } catch (Exception e2) {
-      }
+      sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
   }
-
 }

@@ -10,10 +10,13 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public class BoardAddListener implements ActionListener {
 
+  int category;
+
   BoardDao boardDao;
   SqlSessionFactory sqlSessionFactory;
 
-  public BoardAddListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
+  public BoardAddListener(int category, BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
+    this.category = category;
     this.boardDao = boardDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
@@ -24,16 +27,17 @@ public class BoardAddListener implements ActionListener {
     board.setTitle(prompt.inputString("제목? "));
     board.setContent(prompt.inputString("내용? "));
     board.setWriter((Member) prompt.getAttribute("loginUser"));
+    board.setCategory(this.category);
 
     try {
       boardDao.insert(board);
-      //      Thread.sleep(5000);
+      // Thread.sleep(5000);
       //
-      //      boardDao.insert(board);
-      //      Thread.sleep(5000);
+      // boardDao.insert(board);
+      // Thread.sleep(5000);
       //
-      //      boardDao.insert(board);
-      //      Thread.sleep(5000);
+      // boardDao.insert(board);
+      // Thread.sleep(5000);
 
       sqlSessionFactory.openSession(false).commit();
 
@@ -43,14 +47,5 @@ public class BoardAddListener implements ActionListener {
     }
   }
 }
-
-
-
-
-
-
-
-
-
 
 
