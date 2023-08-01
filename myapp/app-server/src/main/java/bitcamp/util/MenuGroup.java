@@ -6,13 +6,17 @@ public class MenuGroup extends Menu {
 
   ArrayList<Menu> childs;
 
-  public MenuGroup(String title) {
-    super(title);
+  public MenuGroup(String path, String title) {
+    super(path, title);
     this.childs = new ArrayList<>();
   }
 
   public void add(Menu menu) {
     this.childs.add(menu);
+  }
+
+  public void add(String menuPath, String title, ActionListener listener) {
+    this.childs.add(new Menu(menuPath, title, listener));
   }
 
   @Override

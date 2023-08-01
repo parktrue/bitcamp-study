@@ -1,21 +1,19 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/member/detail")
 public class MemberDetailListener implements ActionListener {
 
   MemberDao memberDao;
-  SqlSessionFactory sqlSessionFactory;
 
-
-  public MemberDetailListener(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
+  public MemberDetailListener(MemberDao memberDao) {
     this.memberDao = memberDao;
-    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -32,14 +30,5 @@ public class MemberDetailListener implements ActionListener {
     prompt.printf("이메일: %s\n", m.getEmail());
     prompt.printf("성별: %s\n", m.getGender() == 'M' ? "남성" : "여성");
     prompt.printf("가입일: %s\n", m.getCreatedDate());
-
-    try {
-      sqlSessionFactory.openSession(false).commit();
-
-    } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
-      throw new RuntimeException(e);
-    }
-
   }
 }
