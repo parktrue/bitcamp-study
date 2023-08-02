@@ -7,9 +7,8 @@ import java.lang.annotation.Target;
 
 // 메서드에 붙일 애노테이션
 
-@Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 public @interface Bean {
   String value() default "";
-
 }

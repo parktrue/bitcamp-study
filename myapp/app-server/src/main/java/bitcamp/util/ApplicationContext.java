@@ -16,13 +16,13 @@ import bitcamp.myapp.config.AppConfig;
 
 // IoC 컨테이너 = Bean 컨테이너
 // - 자바 설정 클래스(예: AppConfig)에서 @Bean 애노테이션이 붙은 메서드를 찾아 호출하고,
-// 그 리턴 값을 컨테이너에 보관한다.
+//   그 리턴 값을 컨테이너에 보관한다.
 // - 자바 설정 클래스(예: AppConfig)에서 @ComponentScan 애노테이션을 찾아서 패키지 정보를 알아낸다.
-// 패키지에 소속된 모든 클래스에 대해 인스턴스를 생성하여 컨테이너에 보관한다.
+//   패키지에 소속된 모든 클래스에 대해 인스턴스를 생성하여 컨테이너에 보관한다.
 //
 public class ApplicationContext {
   // 객체 보관소
-  Map<String, Object> beanContainer = new HashMap<>();
+  Map<String,Object> beanContainer = new HashMap<>();
 
   public ApplicationContext(Class<?> configClass) throws Exception {
 
@@ -99,57 +99,60 @@ public class ApplicationContext {
     BufferedReader dirReader = new BufferedReader(new InputStreamReader(dirInputStream));
 
     // 5) 디렉토리 리더를 통해 해당 디렉토리에 들어 있는 하위 디렉토리 또는 파일 이름을 알아낸다.
-    // .class 파일을 로딩하여 Class 객체를 준비한다.
+    //    .class 파일을 로딩하여 Class 객체를 준비한다.
     //
     // ==> 전통적인 컬렉션 데이터 가공 방식
-    // - 한 줄씩 읽으면 된다.
-    // Set<Class<?>> classes = new HashSet<>();
-    // String filename = null;
-    // while ((filename = dirReader.readLine()) != null) {
+    //    - 한 줄씩 읽으면 된다.
+    //    Set<Class<?>> classes = new HashSet<>();
+    //    String filename = null;
+    //    while ((filename = dirReader.readLine()) != null) {
     //
-    // // 파일 확장자가 .class 로 끝나는 파일만 처리한다.
-    // if (filename.endsWith(".class")) {
+    //      // 파일 확장자가 .class 로 끝나는 파일만 처리한다.
+    //      if (filename.endsWith(".class")) {
     //
-    // // 패키지 이름과 클래스 이름(.class 확장자를 뺀 이름)을 합쳐서
-    // // Fully-Qualified class name을 만든 다음에
-    // // Class.forName() 을 사용하여 클래스를 메모리(Method Area)에 로딩한다.
-    // Class<?> clazz = Class.forName(basePackage + "." + filename.replace(".class", ""));
+    //        // 패키지 이름과 클래스 이름(.class 확장자를 뺀 이름)을 합쳐서
+    //        // Fully-Qualified class name을 만든 다음에
+    //        // Class.forName() 을 사용하여 클래스를 메모리(Method Area)에 로딩한다.
+    //        Class<?> clazz = Class.forName(basePackage + "." + filename.replace(".class", ""));
     //
-    // // 로딩한 클래스 정보를 Set 컬렉션에 담는다.
-    // classes.add(clazz);
-    // }
-    // }
+    //        // 로딩한 클래스 정보를 Set 컬렉션에 담는다.
+    //        classes.add(clazz);
+    //      }
+    //    }
 
     // ==> 스트림 프로그래밍 기법을 이용하여 컬렉션 데이터를 가공하는 방식
-    // Set<Class<?>> classes = dirReader
-    // .lines() // 오리지널 문자 단위 스트림을 줄 단위로 문자열로 나열한 스트림으로 변환한다.
-    // .filter(new Predicate<String>() { // 스트림에서 처리할 대상을 선택하는 필터를 꼽는다.
-    // @Override
-    // public boolean test(String filename) {
-    // // 이 필터는 파일의 확장자가 .class 로 끝나는 경우에만 처리한다.
-    // return filename.endsWith(".class");
-    // }})
-    // .map(new Function<String, Class<?>>() { // 파일 이름을 받아서 Class 정보를 리턴하는 플러그인 장착한다.
-    // @Override
-    // public Class<?> apply(String filename) {
-    // try {
-    // return Class.forName(basePackage + "." + filename.replace(".class", ""));
-    // } catch (Exception e) {
-    // // 클래스 로딩하다가 예외가 발생하면 무시한다.
-    // }
-    // return null;
-    // }})
-    // .collect(Collectors.toSet()); // 스트림을 수행하여 최종 결과물은 Set 컬렉션에 담아서 리턴하라고 명령한다.
+    //    Set<Class<?>> classes = dirReader
+    //        .lines() // 오리지널 문자 단위 스트림을 줄 단위로 문자열로 나열한 스트림으로 변환한다.
+    //        .filter(new Predicate<String>() { // 스트림에서 처리할 대상을 선택하는 필터를 꼽는다.
+    //          @Override
+    //          public boolean test(String filename) {
+    //            // 이 필터는 파일의 확장자가 .class 로 끝나는 경우에만 처리한다.
+    //            return filename.endsWith(".class");
+    //          }})
+    //        .map(new Function<String, Class<?>>() { // 파일 이름을 받아서 Class 정보를 리턴하는 플러그인 장착한다.
+    //          @Override
+    //          public Class<?> apply(String filename) {
+    //            try {
+    //              return Class.forName(basePackage + "." + filename.replace(".class", ""));
+    //            } catch (Exception e) {
+    //              // 클래스 로딩하다가 예외가 발생하면 무시한다.
+    //            }
+    //            return null;
+    //          }})
+    //        .collect(Collectors.toSet()); // 스트림을 수행하여 최종 결과물은 Set 컬렉션에 담아서 리턴하라고 명령한다.
 
     // ==> 스트림 프로그래밍 방식( + 람다)
-    Set<Class<?>> classes =
-        dirReader.lines().filter(filename -> filename.endsWith(".class")).map(filename -> {
+    Set<Class<?>> classes = dirReader
+        .lines()
+        .filter(filename -> filename.endsWith(".class"))
+        .map(filename -> {
           try {
             return Class.forName(basePackage + "." + filename.replace(".class", ""));
           } catch (Exception e) {
             return null;
           }
-        }).collect(Collectors.toSet());
+        })
+        .collect(Collectors.toSet());
 
     // 6) 로딩된 클래스 정보를 활용하여 객체를 생성한다.
     for (Class<?> clazz : classes) {
@@ -230,5 +233,11 @@ public class ApplicationContext {
     }
   }
 }
+
+
+
+
+
+
 
 

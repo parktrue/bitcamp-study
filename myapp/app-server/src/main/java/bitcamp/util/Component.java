@@ -7,9 +7,8 @@ import java.lang.annotation.Target;
 
 // 클래스에 붙일 애노테이션
 
-@Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface Component {
   String value() default "";
-
 }

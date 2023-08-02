@@ -13,7 +13,7 @@
     <result column="created_date"   property="createdDate"/>
     <result column="category"       property="category"/>
     
-    <association property="writer"  javaType="member">
+    <association property="writer" javaType="member">
       <id     column="member_no"    property="no"/>
       <result column="name"         property="name"/>
     </association>
@@ -60,13 +60,13 @@
   </select>
   
   <update id="update" parameterType="board">
-    update myapp_board set
-      title=#{title},
-      content=#{content}
-    where 
-      category=#{category}
-      and board_no=#{no}
-      and writer=#{writer.no}
+	  update myapp_board set
+	    title=#{title},
+	    content=#{content}
+	  where 
+	    category=#{category}
+	    and board_no=#{no}
+	    and writer=#{writer.no}
   </update>
   
   <update id="updateCount" parameterType="board">
