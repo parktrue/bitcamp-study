@@ -1,0 +1,61 @@
+
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Servlet API
+    // providedCompile? 컴파일 할때만 사용하는 라이브러리
+    // 배포 할때 제외할 라이브러리
+    // 배포 받는 쪽에서 라이브러리를 갖고 있을때 이옵션을 제외한다.
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:31.1-jre'
+    
+    
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8' 
+
+    sourceCompatibility = '17'
+
+    targetCompatibility = '17'
+}
+
+eclipse {
+    project {
+        name = "servlet-app"
+    }
+    jdt {
+      sourceCompatibility = 17
+      targetCompatibility = 17
+      javaRuntimeName = "JavaSE-17"
+    }
+}
+
+war {
+    archiveBaseName = "servlet-app"
+}

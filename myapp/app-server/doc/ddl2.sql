@@ -1,4 +1,4 @@
-create table myapp_board2(
+create table myapp_board(
   board_no int not null,
   title varchar(255) not null,
   content text null,
@@ -9,7 +9,7 @@ create table myapp_board2(
   category int not null
 );
 
-alter table myapp_board2
+alter table myapp_board
   add constraint primary key (board_no),
   modify column board_no int not null auto_increment;
   
@@ -30,8 +30,8 @@ alter table myapp_member
   add constraint myapp_member_uk unique (email);
   
 -- 게시판 작성자에 대해 외부키 설정
-alter table myapp_board2
-  add constraint myapp_board2_fk foreign key (writer) references myapp_member (member_no);
+alter table myapp_board
+  add constraint myapp_board_fk foreign key (writer) references myapp_member (member_no);
   
 
   
