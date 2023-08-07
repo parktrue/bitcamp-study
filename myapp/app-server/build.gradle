@@ -59,6 +59,8 @@ eclipse {
             //facet name: 'jst.web', version: '4.0'
         }
         component {
+            // myapp 루트를 서버 루트로 지정한다.
+            // 지정하지 않으면 war파일명이 사용된다! 여기선 myapp
             contextPath = '/'
             //deployName = 'web'
         }
