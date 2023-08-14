@@ -47,3 +47,12 @@ public class BoardDeleteServlet extends HttpServlet {
 }
 
 
+
+
+
+
+
+
+
+
+

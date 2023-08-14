@@ -39,8 +39,11 @@ public class MemberListServlet extends HttpServlet {
 
     List<Member> list = InitServlet.memberDao.findAll();
     for (Member m : list) {
-      out.printf("<tr>" + " <td>%d</td>" + " <td><a href='/member/detail?no=%d'>%s</a></td>"
-          + " <td>%s</td></tr>\n", m.getNo(), m.getNo(), m.getName(), m.getEmail());
+      out.printf("<tr>"
+          + " <td>%d</td>"
+          + " <td><a href='/member/detail?no=%d'>%s</a></td>"
+          + " <td>%s</td></tr>\n",
+          m.getNo(), m.getNo(), m.getName(), m.getEmail());
     }
 
     out.println("</tbody>");
