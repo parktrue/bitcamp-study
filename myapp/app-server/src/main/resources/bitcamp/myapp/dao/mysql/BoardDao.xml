@@ -19,10 +19,16 @@
     </association>
     
     <collection property="attachedFiles" ofType="attachedFile">
-      <id     column="board_file_no"    property="no"/>
-      <result column="filepath"         property="filePath"/>
+      <id     column="board_file_no"     property="no"/>
+      <result column="filepath"          property="filePath"/>
     </collection>
     
+  </resultMap>
+  
+  <resultMap type="attachedFile"         id="attachedFileMap">
+    <id     column="board_file_no"       property="no"/>
+    <result column="filepath"            property="filePath"/>
+    <result column="board_no"            property="boardNo"/>
   </resultMap>
 
   <insert id="insert" parameterType="board" useGeneratedKeys="true" keyColumn="board_no" keyProperty="no">
@@ -98,6 +104,23 @@
     values
     <foreach collection="attachedFiles" item="file" separator=",">(#{file.filePath}, #{no})</foreach>
   </insert>
+  
+  <select id="findFileBy" parameterType="int" resultMap="attachedFileMap">
+    select
+      board_file_no,
+      filepath,
+      board_no
+    from
+      myapp_board_file
+    where
+      board_file_no=#{no}
+  </select>
+  
+  <delete id="deleteFile" parameterType="int">
+    delete from myapp_board_file
+    where 
+      board_file_no=#{no}
+  </delete>
 </mapper>
 
 
