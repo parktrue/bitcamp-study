@@ -1,4 +1,3 @@
-// 서블릿 만들기 - javax.servlet.Servlet 인터페이스 구현
 package eomcs.servlet.ex01;
 
 import java.io.IOException;
@@ -7,10 +6,11 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// @WebServlet("/ex01/first")
+@WebServlet("/ex01/first")
 public class Servlet01 implements Servlet {
 
   ServletConfig config;
@@ -33,8 +33,8 @@ public class Servlet01 implements Servlet {
   @Override
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
-    HttpServletRequest req2 = (HttpServletRequest) req;
-    HttpServletResponse res2 = (HttpServletResponse) res;
+    HttpServletRequest req2 = (HttpServletRequest)req;
+    HttpServletResponse res2 = (HttpServletResponse)res;
     // 클라이언트가 이 서블릿의 실행을 요청할 때마다 호출된다.
     // 클라이언트가 요청한 작업을 수행한다.
     System.out.println("Servlet01.service(ServletRequest,ServletResponse)");
@@ -66,5 +66,4 @@ public class Servlet01 implements Servlet {
   }
 
 }
-
 

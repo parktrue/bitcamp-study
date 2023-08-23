@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.mybatis:mybatis:3.5.13'
   
     // Servlet API 
-    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    // providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
     
     // Embedded Tomcat 서버
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
@@ -53,6 +53,7 @@ tasks.withType(JavaCompile) {
     targetCompatibility = '17'
 }
 
+
 eclipse {
     project {
         name = "myapp-server"
@@ -75,6 +76,7 @@ eclipse {
         }
     }
 }
+
 
 war {
     archiveBaseName = "myapp"

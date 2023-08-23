@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,10 @@ public class BoardListServlet extends HttpServlet {
     out.println("<title>게시글</title>");
     out.println("</head>");
     out.println("<body>");
+
+    // HeaderServlet의 출력결과를 합친다.
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>게시글 목록</h1>");
     out.println("<div style='margin:5px;'>");
     out.printf("<a href='/board/form?category=%d'>새 글</a>\n", category);
@@ -46,11 +51,11 @@ public class BoardListServlet extends HttpServlet {
     out.println("<tbody>");
     for (Board board : list) {
       out.printf("<tr>"
-          + " <td>%d</td>"
-          + " <td><a href='/board/detail?category=%d&no=%d'>%s</a></td>"
-          + " <td>%s</td>"
-          + " <td>%d</td>"
-          + " <td>%s</td></tr>\n",
+              + " <td>%d</td>"
+              + " <td><a href='/board/detail?category=%d&no=%d'>%s</a></td>"
+              + " <td>%s</td>"
+              + " <td>%d</td>"
+              + " <td>%s</td></tr>\n",
           board.getNo(),
           board.getCategory(),
           board.getNo(),
@@ -58,11 +63,15 @@ public class BoardListServlet extends HttpServlet {
           board.getWriter().getName(),
           board.getViewCount(),
           dateFormatter.format(board.getCreatedDate())
-          );
+      );
     }
     out.println("</tbody>");
     out.println("</table>");
     out.println("<a href='/'>메인</a>");
+
+    // FooterServlet의 출력결과를 합친다.
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }

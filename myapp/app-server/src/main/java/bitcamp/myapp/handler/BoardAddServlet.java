@@ -37,10 +37,7 @@ public class BoardAddServlet extends HttpServlet {
       board.setContent(request.getParameter("content"));
       board.setCategory(Integer.parseInt(request.getParameter("category")));
 
-      String uploadDir = request.getServletContext().getRealPath("/upload/board/");
-      System.out.println(uploadDir);
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-
       for (Part part : request.getParts()) {
         if (part.getName().equals("files") && part.getSize() > 0) {
           String uploadFileUrl = InitServlet.ncpObjectStorageService
@@ -53,40 +50,26 @@ public class BoardAddServlet extends HttpServlet {
 
       board.setAttachedFiles(attachedFiles);
 
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>\n",
-          board.getCategory());
-      out.println("<title>게시글</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>게시글 등록</h1>");
-      try {
-        InitServlet.boardDao.insert(board);
-
-        if (attachedFiles.size() > 0) {
-          int count = InitServlet.boardDao.insertFiles(board);
-          System.out.println(count);
-        }
-        InitServlet.sqlSessionFactory.openSession(false).commit();
-        out.println("<p>등록 성공입니다!</p>");
-
-      } catch (Exception e) {
-        InitServlet.sqlSessionFactory.openSession(false).rollback();
-        out.println("<p>등록 실패입니다!</p>");
-        e.printStackTrace();
+      InitServlet.boardDao.insert(board);
+      if (attachedFiles.size() > 0) {
+        int count = InitServlet.boardDao.insertFiles(board);
       }
-      out.println("</body>");
-      out.println("</html>");
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
 
+      InitServlet.sqlSessionFactory.openSession(false).commit();
+      response.sendRedirect("list?category=" + board.getCategory());
+
+    } catch (Exception e) {
+      InitServlet.sqlSessionFactory.openSession(false).rollback();
+
+      // ErrorServlet 으로 포워딩하기전에 ErrorServlet이 사용할 데이터를
+      // ServletRequest 보관소에 저장한다.
+      request.setAttribute("error", e);
+      request.setAttribute("message", "게시글 등록오류");
+      request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
+      request.getRequestDispatcher("/error").forward(request, response);
+    }
   }
 }
+
 
 

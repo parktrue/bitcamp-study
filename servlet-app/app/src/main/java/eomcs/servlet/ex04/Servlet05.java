@@ -16,11 +16,11 @@ import javax.servlet.http.Part;
 // 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라.
 // 1) DD 파일(web.xml)에 설정하기
 // <servlet>
-// <servlet-name>ex04.Servlet05</servlet-name>
-// <servlet-class>com.eomcs.web.ex04.Servlet05</servlet-class>
-// <multipart-config>
-// <max-file-size>10000000</max-file-size>
-// </multipart-config>
+//   <servlet-name>ex04.Servlet05</servlet-name>
+//   <servlet-class>com.eomcs.web.ex04.Servlet05</servlet-class>
+//   <multipart-config>
+//     <max-file-size>10000000</max-file-size>
+//   </multipart-config>
 // </servlet>
 //
 // 2) 애노테이션으로 설정하기

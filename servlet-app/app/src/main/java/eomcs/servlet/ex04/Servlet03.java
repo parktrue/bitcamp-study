@@ -21,7 +21,7 @@ public class Servlet03 extends GenericServlet {
     // POST 요청으로 파일 전송하기
     // - 파일을 첨부하여 서버에 전송한다.
     // - multipart/form-data 형식으로 데이터를 전송하지 않으면
-    // 첨부 파일의 데이터는 받을 수 없다.
+    //   첨부 파일의 데이터는 받을 수 없다.
     //
     // 테스트
     // - http://localhost:8080/java-web/ex04/test03.html 실행

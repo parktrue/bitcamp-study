@@ -26,7 +26,11 @@ public class MemberDeleteServlet extends HttpServlet {
 
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
-      throw new RuntimeException(e);
+      request.setAttribute("error", e);
+      request.setAttribute("message", e.getMessage());
+      request.setAttribute("refresh", "2;url=list");
+
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 

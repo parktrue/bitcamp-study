@@ -1,13 +1,13 @@
 // 클라이언트가 보낸 데이터 읽기 - 여러 개의 데이터를 같은 이름으로 보낸 경우
 package eomcs.servlet.ex04;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/ex04/s6_2")
 public class Servlet06_2 extends GenericServlet {
@@ -31,6 +31,7 @@ public class Servlet06_2 extends GenericServlet {
     // => 예) genre=1&genre=2&genre=4
     // => 다음과 같이 한 번에 값을 리턴 받는다.
     String[] genres = req.getParameterValues("genre");
+
     String[] genreData = {"", "로맨틱", "스릴러", "호러", "드라마", "액션", "SF"};
 
     res.setContentType("text/plain;charset=UTF-8");

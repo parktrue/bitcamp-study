@@ -41,7 +41,7 @@ public class BoardFileDeleteServlet extends HttpServlet {
       throw new ServletException("게시글 변경 권한이 없습니다!");
     }
 
-    // 일치하면 첨부파일을 삭제한다.
+    //     일치하면 첨부파일을 삭제한다.
     try {
       if (InitServlet.boardDao.deleteFile(fileNo) == 0) {
         throw new Exception("해당 번호의 첨부파일이 없거나 삭제 권한이 없습니다.");

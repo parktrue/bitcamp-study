@@ -1,21 +1,22 @@
 // 멀티파트 파일 업로드 처리하기 - apache 라이브러리 사용
 package eomcs.servlet.ex04;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 // 멀티파트 형식으로 전송된 데이터는
 // 별도의 처리과정이 필요하다.
@@ -45,20 +46,20 @@ public class Servlet04 extends GenericServlet {
 
     // 멀티파트 형식으로 보낸 첨부 파일 데이터를 읽는 방법
     // => Content-Type 헤더에 지정한 구분자를 사용하여 각 파트를 분리한 다음
-    // 데이터를 읽는다.
+    //    데이터를 읽는다.
     // => 문제는 기존에 제공하는 getParameter()로는 멀티파트 형식으로 전송된
-    // 데이터를 읽을 수 없다.
+    //    데이터를 읽을 수 없다.
     // => 방법?
     // 1) 개발자가 직접 멀티파트 형식을 분석하여 데이터를 추출한다.(X)
     // 2) 외부 라이브러리를 사용한다.
-    // - apache.org 사이트에서 제공하는 멀티파트 데이터 분석기를 사용한다.
-    // - 실무에서 예전에 많이 사용했다.
+    //    - apache.org 사이트에서 제공하는 멀티파트 데이터 분석기를 사용한다.
+    //    - 실무에서 예전에 많이 사용했다.
     // 3) Servlet 3.0 부터 제공하는 기능을 이용한다.
-    // - 실무에서는 아직도 apache.org에서 제공하는 라이브러리를 계속 사용하는 곳도 있다.
-    // 그래서 Servlet 3.0에서 제공하는 방법뿐만아니라
-    // 2) 번 방법도 알고 있어야 한다.
+    //    - 실무에서는 아직도 apache.org에서 제공하는 라이브러리를 계속 사용하는 곳도 있다.
+    //      그래서 Servlet 3.0에서 제공하는 방법뿐만아니라
+    //      2) 번 방법도 알고 있어야 한다.
     // 4) Spring WebMVC를 사용한다면 해당 프레임워크에서 제공하는 기능을 이용한다.
-    // - Spring WebMVC를 설명할 때 실습하겠다.
+    //    - Spring WebMVC를 설명할 때 실습하겠다.
     //
     // 테스트
     // - http://localhost:8080/java-web/ex04/test04.html 실행
@@ -78,16 +79,16 @@ public class Servlet04 extends GenericServlet {
     //
     // DiskFileItemFactory
     // => 각 파트 데이터를 분석하여
-    // - 파라미터이름과 값을 추출한다.
-    // - 파일인 경우 임시 폴더에 저장한다.
-    // - 그런 후 FileItem 객체에 분석한 정보를 담아서 리턴한다.
+    //    - 파라미터이름과 값을 추출한다.
+    //    - 파일인 경우 임시 폴더에 저장한다.
+    //    - 그런 후 FileItem 객체에 분석한 정보를 담아서 리턴한다.
     // => ServletFileUpload 객체의 일을 도와준다.
     DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
 
     // ServletFileUpload
     // => 클라이언트가 보낸 멀티 파트 형식의 HTTP 요청 프로토콜을 분석하는 일을 한다.
     // => 생성자에 주입된 FileItemFactory 객체를 사용하여
-    // 각 파트의 데이터를 사용하기 좋게 FileItem 객체로 만든다.
+    //    각 파트의 데이터를 사용하기 좋게 FileItem 객체로 만든다.
     ServletFileUpload multipartDataHandler = new ServletFileUpload(fileItemFactory);
 
     // => 분석한 데이터를 보관할 맵 객체를 준비한다.
@@ -103,7 +104,7 @@ public class Servlet04 extends GenericServlet {
           // 파트의 데이터가 일반 데이터라면
           paramMap.put(part.getFieldName(), // 클라이언트가 보낸 파라미터 이름
               part.getString("UTF-8") // 파라미터의 값. 값 꺼낼 때 인코딩을 지정해야 한다.
-          );
+              );
 
         } else {
           // 파트의 데이터가 파일이라면
@@ -124,7 +125,7 @@ public class Servlet04 extends GenericServlet {
 
           paramMap.put(part.getFieldName(), // 클라이언트가 보낸 파라미터 이름
               filename // 파일 이름
-          );
+              );
         }
       }
 
@@ -180,5 +181,6 @@ public class Servlet04 extends GenericServlet {
 //
 // 바이너리데이터...
 // ------WebKitFormBoundaryT1G23U6fYMK0zZxx--
+
 
 

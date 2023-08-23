@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ff40ad03-9eb2-4c46-a168-987348f26971" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/bitcamp/myapp/vo/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bitcamp/myapp/vo/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/doc/dbmodel.exerd" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/doc/dbmodel.exerd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/doc/ddl3.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/doc/ddl3.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/BoardDeleteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/BoardDeleteServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberAddServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberAddServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberDetailServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberDetailServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberListServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberUpdateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/myapp/handler/MemberUpdateServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/resources/bitcamp/myapp/dao/mysql/MemberDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/resources/bitcamp/myapp/dao/mysql/MemberDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/member/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/member/form.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2U90TjTa1nBNG72UsASUJ82Y7oH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/odin/git/bitcamp-study/myapp/app-common/build.gradle"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ff40ad03-9eb2-4c46-a168-987348f26971" name="Changes" comment="" />
+      <created>1692336498919</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692336498919</updated>
+    </task>
+    <servers />
+  </component>
+</project>

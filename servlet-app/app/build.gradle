@@ -1,7 +1,7 @@
 
 plugins {
     id 'java'
-    id 'eclipse-wtp'
+    // id 'eclipse-wtp'
     id 'war'
 }
 
@@ -14,17 +14,20 @@ dependencies {
     // providedCompile? 컴파일 할때만 사용하는 라이브러리
     // 배포 할때 제외할 라이브러리
     // 배포 받는 쪽에서 라이브러리를 갖고 있을때 이옵션을 제외한다.
-    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
-    
-    // Use JUnit Jupiter for testing.
+    // providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+
+    // Embedded Tomcat 서버
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
+
+    // multipart/form-data 처리 라이브러리
+    implementation 'commons-fileupload:commons-fileupload:1.5' // Servlet API로 대체
+
+    // thumbnail 이미지 생성기
+    implementation 'net.coobird:thumbnailator:0.4.20'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
-    
-    
 }
 
 java {
@@ -45,6 +48,7 @@ tasks.withType(JavaCompile) {
     targetCompatibility = '17'
 }
 
+/*
 eclipse {
     project {
         name = "servlet-app"
@@ -70,3 +74,4 @@ eclipse {
 war {
     archiveBaseName = "servlet-app"
 }
+*/
