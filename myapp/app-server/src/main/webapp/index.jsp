@@ -1,31 +1,25 @@
 <%@ page
-  language="java"
-  pageEncoding="UTF-8"
-  contentType="text/html;charset=UTF-8"%>
+        language="java"
+        pageEncoding="UTF-8"
+        contentType="text/html;charset=UTF-8" %>
 
-<%@ page import="bitcamp.myapp.vo.Member"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>비트캠프</title>
+</head>
+<body>
 
-<div style='height:60px;background-color:orange;'>
-  <img src='https://www.ncloud.com/public/img/logo-m.png' style='hight:40px'>
-  <a href='/member/list'>회원</a>
-  <a href='/board/list.jsp?category=1'>게시글</a>
-  <a href='/board/list.jsp?category=2'>독서록</a>
+<jsp:include page="./header.jsp"/>
 
-<%
-  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      out.println("<a href='/auth/form'>로그인</a>");
-    } else {
-      if (loginUser.getPhoto() == null) {
-        out.println( "<img style='height:40px' src='/images/avatar.png'>");
-      } else {
-        out.println(String.format(
-          "<img src='http://xxqrmvmzbxkt19010716.cdn.ntruss.com/member/%s?type=f&w=30&h=40&ttype=jpg'>",
-          loginUser.getPhoto()));
-      }
-      out.println(String.format("%s <a href='/auth/logout'>로그아웃</a>", loginUser.getName()));
-    }
-%>
+<h1>MyApp[JSP]</h1>
+<p>실습 프로젝트</p>
+
+<jsp:include page="./footer.jsp"/>
+
+</body>
+</html>
 
 
-</div>
+

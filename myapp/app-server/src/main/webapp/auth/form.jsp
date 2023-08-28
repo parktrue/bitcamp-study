@@ -6,20 +6,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='UTF-8'>
-    <title>비트캠프</title>
+  <meta charset='UTF-8'>
+  <title>비트캠프</title>
 </head>
 <body>
 
 <jsp:include page="../header.jsp"/>
 
-<h1>게시글(JSP + ActionTag + Scriptlet)</h1>
-<form action='/board/add.jsp' method='post' enctype='multipart/form-data'>
-    제목 <input type='text' name='title'><br>
-    내용 <textarea name='content'></textarea><br>
-    파일 <input type='file' name='files' multiple><br>
-    <input type='hidden' name='category' value='1'>
-    <button>등록</button>
+<h1>로그인</h1>
+<form action='/auth/login.jsp' method='post'>
+  <table border='1'>
+    <tr>
+      <th>이메일</th>
+      <td><input type='email' name='email' value='${cookie.email.value}' placeholder='이메일을 입력하세요!'></td>
+    </tr>
+    <tr>
+      <th>암호</th>
+      <td><input type='password' name='password' placeholder='암호를 입력하세요!'></td>
+    </tr>
+  </table>
+  <button>로그인</button>
+  <input type='checkbox' name='saveEmail' ${cookie.email != null ? "checked" : ""}> 이메일저장
 </form>
 
 <jsp:include page="../footer.jsp"/>

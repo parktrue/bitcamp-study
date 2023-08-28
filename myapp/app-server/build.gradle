@@ -32,6 +32,9 @@ dependencies {
     
     // multipart/form-data 처리 라이브러리
     // implementation 'commons-fileupload:commons-fileupload:1.5' // Servlet API로 대체
+
+    // JSTL 라이브러리
+    implementation 'jstl:jstl:1.2'
         
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     implementation 'com.google.guava:guava:31.1-jre'

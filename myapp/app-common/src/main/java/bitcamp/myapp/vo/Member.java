@@ -90,4 +90,17 @@ public class Member implements Serializable {
   public void setPhoto(String photo) {
     this.photo = photo;
   }
+
+  @Override
+  public String toString() {
+    return "Member{" +
+        "no=" + no +
+        ", name='" + name + '\'' +
+        ", email='" + email + '\'' +
+        ", password='" + password + '\'' +
+        ", gender=" + gender +
+        ", createdDate=" + createdDate +
+        ", photo='" + photo + '\'' +
+        '}';
+  }
 }

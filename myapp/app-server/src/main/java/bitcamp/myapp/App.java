@@ -1,6 +1,7 @@
 package bitcamp.myapp;
 
 import java.io.File;
+
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
@@ -24,12 +25,11 @@ public class App {
 
     // 톰캣 서버의 연결 정보를 설정
     Connector connector = tomcat.getConnector();
-    connector.setURIEncoding("UTF-8");
+    connector.setURIEncoding ("UTF-8");
 
     // 톰캣 서버에 배포할 웹 애플리케이션을 등록한다.
     // 리턴 값: 등록된 웹 애플리케이션 정보
-    StandardContext ctx = (StandardContext) tomcat.addWebapp(
-        "/", // 컨텍스트 경로(웹 애플리케이션 경로)
+    StandardContext ctx = (StandardContext) tomcat.addWebapp("/", // 컨텍스트 경로(웹 애플리케이션 경로)
         new File("src/main/webapp").getAbsolutePath() // 웹 애플리케이션 파일이 있는 실제 경로
     );
 
@@ -40,8 +40,7 @@ public class App {
     WebResourceRoot resources = new StandardRoot(ctx);
 
     // 웹 애플리케이션의 서블릿 클래스 파일 및 기타 파일의 위치 정보 등록
-    resources.addPreResources(new DirResourceSet(
-        resources, // 루트 웹 애플리케이션 정보
+    resources.addPreResources(new DirResourceSet(resources, // 루트 웹 애플리케이션 정보
         "/WEB-INF/classes", // 서블릿 클래스 파일의 위치 정보
         new File("build/classes/java/main").getAbsolutePath(), // 서블릿 클래스 파일이 있는 실제 경로
         "/" // 웹 애플리케이션 내부 경로

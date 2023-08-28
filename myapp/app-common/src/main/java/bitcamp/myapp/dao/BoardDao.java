@@ -5,6 +5,7 @@ import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 
 public interface BoardDao {
+
   void insert(Board board);
 
   List<Board> findAll(int category);
@@ -22,5 +23,7 @@ public interface BoardDao {
   AttachedFile findFileBy(int no);
 
   int deleteFile(int fileNo);
+
+  int deleteFiles(int boardNo);
 
 }

@@ -4,6 +4,9 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/app-server/src/main/webapp/error.jsp" value="file://$PROJECT_DIR$/app-server/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/app-server/src/main/webapp/header.jsp" value="file://$PROJECT_DIR$/app-server/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/app-server/src/main/webapp/member/list.jsp" value="file://$PROJECT_DIR$/app-server/src/main/webapp/member" />
+        <entry key="file://$PROJECT_DIR$/app-server/src/main/webapp/member/update.jsp" value="file://$PROJECT_DIR$/app-server/src/main/webapp/member" />
       </map>
     </option>
   </component>

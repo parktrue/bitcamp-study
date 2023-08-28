@@ -1,30 +1,35 @@
 <%@ page
         language="java"
         pageEncoding="UTF-8"
-        contentType="text/html;charset=UTF-8" %>
+        contentType="text/html;charset=UTF-8"
+        isErrorPage="true" %>
 
-<%@ page import="bitcamp.myapp.vo.Member" %>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory"
+             scope="application"/>
+<%
+  sqlSessionFactory.openSession(false).rollback();
+  if (request.getAttribute("refresh") != null) {
+    response.setHeader("Refresh", (String) request.getAttribute("refresh"));
+  }
+%>
 
-<div style='height:60px;background-color:orange;'>
-  <img src='https://www.ncloud.com/public/img/logo-m.png' style='hight:40px'>
-  <a href='/member/list'>회원</a>
-  <a href='/board/list.jsp?category=1'>게시글</a>
-  <a href='/board/list.jsp?category=2'>독서록</a>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>실행오류</title>
+</head>
+<body>
 
-  <%
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      out.println("<a href='/auth/form'>로그인</a>");
-    } else {
-      if (loginUser.getPhoto() == null) {
-        out.println("<img style='height:40px' src='/images/avatar.png'>");
-      } else {
-        out.println(String.format(
-                "<img src='http://xxqrmvmzbxkt19010716.cdn.ntruss.com/member/%s?type=f&w=30&h=40&ttype=jpg'>",
-                loginUser.getPhoto()));
-      }
-      out.println(String.format("%s <a href='/auth/logout'>로그아웃</a>", loginUser.getName()));
-    }
-  %>
+<jsp:include page="header.jsp"/>
 
-</div>
+<h1>실행 오류!</h1>
+
+<p>
+  <%=exception%>
+</p>
+
+<jsp:include page="footer.jsp"/>
+
+</body>
+</html>
