@@ -14,7 +14,7 @@
 <jsp:include page="../header.jsp"/>
 
 <h1>로그인</h1>
-<form action='/auth/login.jsp' method='post'>
+<form action='/auth/login' method='post'>
   <table border='1'>
     <tr>
       <th>이메일</th>
