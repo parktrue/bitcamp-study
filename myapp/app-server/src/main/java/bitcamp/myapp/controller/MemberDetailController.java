@@ -1,27 +1,22 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import bitcamp.myapp.dao.MemberDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 
-import bitcamp.myapp.dao.MemberDao;
+@Component("/member/detail")
+public class MemberDetailController implements PageController {
 
-@WebServlet("/member/detail")
-public class MemberDetailController extends HttpServlet {
+  MemberDao memberDao;
 
-  private static final long serialVersionUID = 1L;
+  public MemberDetailController(MemberDao memberDao) {
+    this.memberDao = memberDao;
+  }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     request.setAttribute("member", memberDao.findBy(Integer.parseInt(request.getParameter("no"))));
-
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/member/detail.jsp").include(request, response);
+    return "/WEB-INF/jsp/member/detail.jsp";
   }
 }
