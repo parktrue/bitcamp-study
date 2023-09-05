@@ -1,22 +1,20 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.MemberService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-@Component("/member/list")
+@Controller("/member/list")
 public class MemberListController implements PageController {
 
-  MemberDao memberDao;
-
-  public MemberListController(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
+  @Autowired
+  MemberService memberService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setAttribute("list", memberDao.findAll());
+    request.setAttribute("list", memberService.list());
     return "/WEB-INF/jsp/member/list.jsp";
   }
 }

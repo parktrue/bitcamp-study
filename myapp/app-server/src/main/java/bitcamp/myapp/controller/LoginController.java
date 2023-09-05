@@ -1,20 +1,18 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.MemberService;
 import bitcamp.myapp.vo.Member;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-@Component("/auth/login")
+@Controller("/auth/login")
 public class LoginController implements PageController {
 
-  MemberDao memberDao;
-
-  public LoginController(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
+  @Autowired
+  MemberService memberService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -23,8 +21,8 @@ public class LoginController implements PageController {
     }
 
     Member m = new Member();
-    m.setEmail(request.getParameter("email"));
-    m.setPassword(request.getParameter("password"));
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
     if (request.getParameter("saveEmail") != null) {
       Cookie cookie = new Cookie("email", m.getEmail());
@@ -35,7 +33,7 @@ public class LoginController implements PageController {
       response.addCookie(cookie);
     }
 
-    Member loginUser = memberDao.findByEmailAndPassword(m);
+    Member loginUser = memberService.get(email, password);
     if (loginUser == null) {
       request.setAttribute("refresh", "3;url=/app/auth/login");
       throw new Exception("회원정보가 일치하지 않습니다!");

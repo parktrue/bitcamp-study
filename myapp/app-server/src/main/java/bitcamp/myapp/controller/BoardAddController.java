@@ -1,6 +1,6 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.service.NcpObjectStorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
@@ -9,22 +9,17 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-@Component("/board/add")
+@Controller("/board/add")
 public class BoardAddController implements PageController {
 
-  BoardDao boardDao;
-  SqlSessionFactory sqlSessionFactory;
-  NcpObjectStorageService ncpObjectStorageService;
+  @Autowired
+  BoardService boardService;
 
-  public BoardAddController(BoardDao boardDao, SqlSessionFactory sqlSessionFactory,
-      NcpObjectStorageService ncpObjectStorageService) {
-    this.boardDao = boardDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-    this.ncpObjectStorageService = ncpObjectStorageService;
-  }
+  @Autowired
+  NcpObjectStorageService ncpObjectStorageService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -56,16 +51,11 @@ public class BoardAddController implements PageController {
       }
       board.setAttachedFiles(attachedFiles);
 
-      boardDao.insert(board);
-      if (attachedFiles.size() > 0) {
-        boardDao.insertFiles(board);
-      }
+      boardService.add(board);
 
-      sqlSessionFactory.openSession(false).commit();
       return "redirect:list?category=" + request.getParameter("category");
 
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
       request.setAttribute("message", "게시글 등록 오류!");
       request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
       throw e;

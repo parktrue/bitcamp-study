@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @WebServlet(value = "/app/*",
@@ -27,8 +26,11 @@ public class DispatcherServlet extends HttpServlet {
     System.out.println("DispatcherServlet.init() 호출됨!");
     iocContainer = new AnnotationConfigApplicationContext(AppConfig.class, NcpConfig.class);
 
-    SqlSessionFactory sqlSessionFactory = iocContainer.getBean(SqlSessionFactory.class);
-    this.getServletContext().setAttribute("sqlSessionFactory", sqlSessionFactory);
+    String[] names = iocContainer.getBeanDefinitionNames();
+    for (String name : names) {
+      System.out.printf("=> %s\n", iocContainer.getBean(name).getClass().getName());
+    }
+
   }
 
   @Override
