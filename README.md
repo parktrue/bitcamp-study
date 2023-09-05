@@ -681,3 +681,11 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
   - 71. 트랜잭션 제어 코드를 캡슐화하기: Spring의 TransactionTemplate 모방 구현
   - 72. Spring의 TransactionTemplate 으로 교체하기
   - 73. 애노테이션을 사용하여 트랜잭션 제어하기
+
+### 73일(9/5,화)
+
+- 프로젝트 실습
+  - 74. Spring의 @Transactional 로 교체하기
+  - 75. 애노테이션으로 request handler 표시하기
+  - 76. CRUD 기능을 한 개의 페이지 컨트롤러로 합치기
+  - 77. 요청 파라미터를 자동 주입하기

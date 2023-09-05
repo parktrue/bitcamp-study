@@ -18,7 +18,7 @@
 
 <h1>게시글 목록</h1>
 <div style='margin:5px;'>
-  <a href='add?category=${param.category}'>새 글</a>
+  <a href='form?category=${param.category}'>새 글</a>
 </div>
 <table border='1'>
   <thead>
@@ -29,7 +29,7 @@
   <c:forEach items="${list}" var="board">
     <tr>
       <td>${board.no}</td>
-      <td><a href='detail?no=${board.no}'>
+      <td><a href='detail?category=${param.category}&no=${board.no}'>
           ${board.title.length() > 0 ? board.title : "제목없음"}
       </a>
       </td>

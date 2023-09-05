@@ -19,7 +19,7 @@ public class CharacterEncodingFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
 
-    System.out.println("CharacterEncodingFilter.doFilter() 호출됨!");
+//    System.out.println("CharacterEncodingFilter.doFilter() 호출됨!");
 
     // 체인에 연결된 다음 작업(필터 또는 서블릿)을 수행하기 전에 해야 할 일
     request.setCharacterEncoding("UTF-8");
