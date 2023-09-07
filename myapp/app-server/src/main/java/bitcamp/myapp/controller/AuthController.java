@@ -8,23 +8,32 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
+@RequestMapping("/auth/")
 public class AuthController {
+  {
+    System.out.println("AuthController 생성!");
+  }
 
   @Autowired
   MemberService memberService;
 
-  @RequestMapping("/auth/form")
+
+  @GetMapping("form")
   public String form() {
     return "/WEB-INF/jsp/auth/form.jsp";
   }
 
-  @RequestMapping("/auth/login")
+  @PostMapping("login")
   public String login(
-      @RequestParam("email") String email,
-      @RequestParam("password") String password,
-      @RequestParam("saveEmail") String saveEmail,
+      String email,
+      String password,
+      String saveEmail,
       HttpSession session,
       Map<String, Object> model,
       HttpServletResponse response) throws Exception {
@@ -47,7 +56,7 @@ public class AuthController {
     return "redirect:/";
   }
 
-  @RequestMapping("/auth/logout")
+  @GetMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/";

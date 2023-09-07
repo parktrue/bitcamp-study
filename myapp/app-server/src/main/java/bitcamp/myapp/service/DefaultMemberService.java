@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DefaultMemberService implements MemberService {
-
+  {
+    System.out.println("DefaultMemberService 생성");
+  }
   MemberDao memberDao;
 
   public DefaultMemberService(MemberDao memberDao) {

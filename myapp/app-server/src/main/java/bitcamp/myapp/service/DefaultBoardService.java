@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DefaultBoardService implements BoardService {
-
+  {
+    System.out.println("DefaultBoardService 생성");
+  }
   BoardDao boardDao;
 
   public DefaultBoardService(BoardDao boardDao) {
