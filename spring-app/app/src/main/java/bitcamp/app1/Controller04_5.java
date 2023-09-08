@@ -3,7 +3,6 @@ package bitcamp.app1;
 
 import java.io.PrintWriter;
 import java.util.Date;
-import org.apache.catalina.Engine;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

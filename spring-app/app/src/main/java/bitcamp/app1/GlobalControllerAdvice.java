@@ -20,9 +20,7 @@ public class GlobalControllerAdvice {
 
     DatePropertyEditor propEditor = new DatePropertyEditor();
     binder.registerCustomEditor(java.util.Date.class, propEditor);
-
     binder.registerCustomEditor(Car.class, new CarPropertyEditor());
-
     binder.registerCustomEditor(Engine.class, new EnginePropertyEditor());
   }
 

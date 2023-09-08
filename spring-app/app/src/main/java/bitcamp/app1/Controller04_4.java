@@ -31,7 +31,7 @@ public class Controller04_4 {
       @RequestParam(defaultValue = "5") int capacity, // String ===> int : Integer.parseInt(String)
       boolean auto, // String ===> boolean : Boolean.parseBoolean(String)
       Date createdDate // 프로퍼티 에디터를 설정하지 않으면 변환 오류 발생
-      ) {
+  ) {
 
     out.printf("model=%s\n", model);
     out.printf("capacity=%s\n", capacity);
@@ -63,8 +63,6 @@ public class Controller04_4 {
     out.println(engine);
   }
 
-
-
   // 이 페이지 컨트롤러에서 사용할 프로퍼티 에디터 설정하는 방법
   // => 프론트 컨트롤러는 request handler를 호출하기 전에
   //    그 메서드가 원하는 아규먼트 값을 준비해야 한다.
@@ -79,7 +77,7 @@ public class Controller04_4 {
   //    즉 이 메서드에 프로퍼티 에디터를 등록하는 코드를 둔다.
   //
 
-  @InitBinder
+//  @InitBinder
   // => 메서드 이름은 마음대로.
   // => 작업하는데 필요한 값이 있다면 파라미터로 선언하라.
   public void initBinder(WebDataBinder binder) {
@@ -95,19 +93,18 @@ public class Controller04_4 {
     binder.registerCustomEditor(
         Date.class, // String을 Date 타입으로 바꾸는 에디터임을 지정한다.
         propEditor // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
-        );
-
+    );
 
     // WebDataBinder에 프로퍼티 에디터 등록하기
     binder.registerCustomEditor(
         Car.class, // String을 Car 타입으로 바꾸는 에디터임을 지정한다.
         new CarPropertyEditor() // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
-        );
+    );
 
     // WebDataBinder에 프로퍼티 에디터 등록하기
     binder.registerCustomEditor(Engine.class, // String을 Engine 타입으로 바꾸는 에디터임을 지정한다.
         new EnginePropertyEditor() // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
-        );
+    );
   }
 
   // PropertyEditor 만들기
@@ -153,6 +150,7 @@ public class Controller04_4 {
 
   // String ===> Car 프로퍼티 에디터 만들기
   class CarPropertyEditor extends PropertyEditorSupport {
+
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
       String[] values = text.split(",");
@@ -168,6 +166,7 @@ public class Controller04_4 {
   }
 
   class EnginePropertyEditor extends PropertyEditorSupport {
+
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
       String[] values = text.split(",");
