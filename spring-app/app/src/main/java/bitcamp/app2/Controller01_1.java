@@ -44,7 +44,7 @@ public class Controller01_1 {
     // InternalResourceViewResolver로 교체한 다음은?
     // => 리턴 값이 없으면 요청 URL(/c01_1/h2)을 리턴 값으로 사용한다.
     // => 따라서 ViewResolver가 계산한 최종 URL은
-    // /WEB-INF/jsp2/c01_1/h2.jsp
+    // /WEB-INF/jsp2/c01_1/h1.jsp
     //
 
   }

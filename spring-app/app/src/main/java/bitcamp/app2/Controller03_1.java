@@ -14,32 +14,37 @@ public class Controller03_1 {
 
   // 테스트:
   //   http://.../app2/c03_1/h1
-  @GetMapping(value="h1", produces="text/plain;charset=UTF-8")
+  @GetMapping(value = "h1", produces = "text/plain;charset=UTF-8")
   @ResponseBody
   public String handler1(HttpSession session) {
     // HttpSession 객체를 사용하려면 아규먼트로 받아야 한다.
     //
     session.setAttribute("name", "홍길동");
     session.setAttribute("age", "20");
+//    session.setAttribute("name2", "임끅정");
+//    session.setAttribute("age2", "54");
 
     return "세션에 값을 보관했음!";
   }
 
   // 테스트:
   //   http://.../app2/c03_1/h2
-  @GetMapping(value="h2", produces="text/plain;charset=UTF-8")
+  @GetMapping(value = "h2", produces = "text/plain;charset=UTF-8")
   @ResponseBody
   public String handler2(HttpSession session) {
     // HttpSession 객체를 사용하려면 아규먼트로 받아야 한다.
     //
-    return String.format("name=%s, age=%s",
+    return String.format("name=%s, age=%s, name2=%s, age2=%s, tel2=%s",
         session.getAttribute("name"),
-        session.getAttribute("age"));
+        session.getAttribute("age"),
+        session.getAttribute("name2"),
+        session.getAttribute("age2"),
+        session.getAttribute("tel2"));
   }
 
   // 테스트:
   //   http://.../app2/c03_1/h3
-  @GetMapping(value="h3", produces="text/plain;charset=UTF-8")
+  @GetMapping(value = "h3", produces = "text/plain;charset=UTF-8")
   @ResponseBody
   public String handler3(HttpSession session) {
     // HttpSession 객체를 사용하려면 아규먼트로 받아야 한다.
@@ -51,7 +56,7 @@ public class Controller03_1 {
     return "세션을 무효화시켰음!";
   }
 
-  @GetMapping(value="h4", produces="text/plain;charset=UTF-8")
+  @GetMapping(value = "h4", produces = "text/plain;charset=UTF-8")
   @ResponseBody
   public String handler4(
       // 현재 페이지 컨트롤러의 @SessionAttributes 에 지정된 이름이 아니라면,

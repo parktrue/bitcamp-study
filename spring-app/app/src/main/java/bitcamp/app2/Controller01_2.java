@@ -76,7 +76,7 @@ public class Controller01_2 {
     // 즉 이 핸들러의 URL은 "/c01_2/h2" 이기 때문에 뷰 이름도 "/c01_2/h2"가 된다.
     // InternalResourceViewResolver는 바로 이 URL을 사용하여 다음과 같이 최종 URL을 만든다.
     // => "/WEB-INF/jsp2/" + "/c01_2/h2" + ".jsp"
-    // => "/WEB-INF/jsp2/c01_2/h2.jsp"
+    // => "/WEB-INF/jsp2/c01_2/h1.jsp"
     //
     // 실무에서는 이 방법을 많이 사용한다.
   }
