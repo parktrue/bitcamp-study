@@ -545,3 +545,5 @@ gradle-app.setting
 *.exe
 node_modules
 temp/
+application.properties
+ncp.properties

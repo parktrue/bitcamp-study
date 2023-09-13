@@ -141,7 +141,7 @@ public class BoardController {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
-      return "redirect:../auth/form";
+      return "redirect:/auth/form";
     }
 
     try {
@@ -171,9 +171,9 @@ public class BoardController {
     }
   }
 
-  @GetMapping("fileDelete/{file}")
+  @GetMapping("fileDelete/{attachedFile}")
   public String fileDelete(
-      @MatrixVariable(name = "fileNo", pathVar = "file") int fileNo,
+      @MatrixVariable("no") int fileNo,
       Model model,
       HttpSession session) throws Exception {
 
@@ -193,12 +193,12 @@ public class BoardController {
       if (boardService.deleteAttachedFile(fileNo) == 0) {
         throw new Exception("해당 번호의 첨부파일이 없다.");
       } else {
-        return "redirect:/app/board/detail/" + board.getCategory() + "/" + board.getNo();
+        return "redirect:/board/detail/" + board.getCategory() + "/" + board.getNo();
       }
 
     } catch (Exception e) {
       model.addAttribute("refresh",
-          "2;url=/app/board/detail/" + board.getCategory() + "/" + board.getNo());
+          "2;url=/board/detail/" + board.getCategory() + "/" + board.getNo());
       throw e;
     }
   }
