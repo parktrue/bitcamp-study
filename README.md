@@ -753,3 +753,7 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
     - 주제1: 미술품 경매 사이트 개발
     - 주제2: SNS 알림 시스템 구축 프로젝트
     - 주제3: URL 단축기 설계 시스템 개발
+
+## 웨일즈 화상회의
+
+https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
